@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>医学影像分析与多步骤提示工程的创新研究</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Mermaid JS -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.2.4/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f8f9fa;
+      color: #212529;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+    .content {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    .code-block {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      border: 1px solid #e9ecef;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .img-caption {
+      text-align: center;
+      color: #6c757d;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container content">
+  <h1 class="text-center mb-5">医学影像分析与多步骤提示工程的创新研究</h1>
+  <p class="lead">本研究探讨了通过多步骤提示工程结合视觉语言模型 (VLM) 和检索增强生成 (RAG) 技术，在医学影像分析领域实现自动化精准诊断的创新方法。SAMI HALAWA 的研究工作特别强调通过动态元提示生成优化的提示过程，实现了无需预训练即可在多种医学场景中灵活应用的突破性成果。</p>
+
+  <section>
+    <h2>OCT 图像分析</h2>
+    <p>以下展示视网膜光学相干断层扫描 (OCT) 图像，用于精确评估黄斑病变和眼科结构变化：</p>
+    <div class="text-center">
+      <img src="https://www.imo.es/assets/2022/04/oct-posterior-1.jpg" alt="OCT Posterior">
+      <p class="img-caption">视网膜OCT扫描图像示例</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>腹部核磁共振成像分析</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Abdominal_MRI_axial_t2_fat_sat_normal_hepatic_veins_and_portal_vein.jpg/800px-Abdominal_MRI_axial_t2_fat_sat_normal_hepatic_veins_and_portal_vein.jpg" alt="腹部MRI示例">
+    <p class="img-caption">轴向 T2 脂肪抑制序列MRI，清晰显示肝脏、肝静脉、门静脉等解剖结构</p>
+    
+    <div class="code-block">
+      <h3 class="h5 mb-3">AI辅助诊断示例</h3>
+      <p><strong>系统提示：</strong> 基于专业医学知识进行分析</p>
+      <p><strong>诊断任务：</strong> "作为腹部影像专家，请对此MRI图像进行系统分析，重点关注肝胆系统形态特征、血管走行及周围组织结构，并提供详细的影像学诊断报告。"</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>动态元提示技术创新</h2>
+    <p>SAMI HALAWA 的核心技术创新在于设计了动态元提示系统，通过智能算法自动生成针对性提示，使模型能够适应不同医学场景的诊断需求。主要技术亮点包括：</p>
+    <ul>
+      <li>智能提示生成：基于目标场景自动构建最优提示策略</li>
+      <li>多层级任务分解：系统化拆解复杂医学诊断流程</li>
+      <li>VLM-RAG融合技术：实时检索医学文献支持临床决策</li>
+      <li>零样本迁移能力：无需额外训练即可应用于新场景</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>研究突破与验证</h2>
+    <p>SAMI HALAWA 的研究成果展示了动态元提示在突破传统医学影像分析限制方面的重要价值。通过优化提示策略，从简单的图像描述提升至专业的医学诊断分析，实现了包括病变检测、形态测量等多维度的精确诊断。研究结果经伦敦眼科专家团队临床验证，证实了该方法的实用价值和准确性。</p>
+  </section>
+
+  <section>
+    <h2>技术流程图解</h2>
+    <div class="mermaid">
+      graph TB
+        A[动态元提示系统] --> B[多维度提示生成]
+        B --> C[VLM与RAG技术融合]
+        C --> D[智能诊断流程]
+        D --> E[跨场景应用]
+        E --> F[自动化医学分析]
+    </div>
+  </section>
+
+  <section>
+    <h2>研究结论</h2>
+    <p>SAMI HALAWA 开创的动态元提示方法，结合先进的VLM和RAG技术，成功突破了传统医学影像分析的技术瓶颈。这一创新不仅显著提升了诊断效率和准确性，还为医学影像AI领域开辟了新的研究方向。通过实现零样本场景迁移和动态提示生成，该研究为医学影像智能化分析树立了新的标准。</p>
+  </section>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: 'neutral',
+    flowchart: {
+      curve: 'basis'
+    }
+  });
+</script>
+</body>
+</html>
