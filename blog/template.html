@@ -1,56 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} | EyeUnit.ai Blog</title>
-    
-    <!-- Styles -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://www.eyeunit.ai/blog/styles.css" rel="stylesheet">
-    
-    <!-- SEO -->
+    <title>{{title}} - EyeUnit.ai Blog</title>
+    <meta name="author" content="{{author}}">
     <meta name="description" content="{{excerpt}}">
     <meta name="keywords" content="{{keywords}}">
-    <link rel="canonical" href="https://www.eyeunit.ai/blog/{{slug}}" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{excerpt}}">
+    <meta property="og:image" content="{{image}}">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="{{date}}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/blog/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-900">
-    <nav class="bg-white shadow-lg">
+<body class="bg-gray-50">
+    <nav class="bg-white shadow">
         <div class="container mx-auto px-6 py-4">
-            <divclass="flex justify-between items-center">
-                <a href="https://www.eyeunit.ai" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
-                <a href="https://www.eyeunit.ai/blog" class="text-gray-600 hover:text-gray-900">← Back to Blog</a>
-            </div>
+            <a href="/" class="text-xl font-bold">EyeUnit.ai</a>
+            <a href="/blog" class="ml-4">Blog</a>
         </div>
     </nav>
-
-    <main class="container mx-auto px-6 py-12">
-        <article class="blog-content">
-            <h1>{{title}}</h1>
-            <div class="text-gray-600 mb-8">
-                <span>By {{author}}</span>
-                <span class="mx-2">•</span>
-                <time>{{date}}</time>
-            </div>
-            {{#if image}}
-            <img src="{{image}}" alt="{{title}}" class="mb-8 rounded-lg shadow-lg">
-            {{/if}}
-            <div class="prose prose-lg">
-                {{content}}
-            </div>
+    
+    <main class="container mx-auto px-6 py-8">
+        <article class="prose lg:prose-xl mx-auto">
+            <header class="mb-8">
+                <h1>{{title}}</h1>
+                <div class="text-gray-600">
+                    By {{author}} | {{date}}
+                </div>
+                {{#if image}}
+                <img src="{{image}}" alt="{{title}}" class="my-4 rounded-lg shadow-lg">
+                {{/if}}
+            </header>
+            
+            {{content}}
         </article>
     </main>
-
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p>&copy; 2024 EyeUnit.ai. All rights reserved.</p>
-                <nav class="mt-4 md:mt-0">
-                    <a href="https://www.eyeunit.ai" class="text-white hover:text-gray-300 mx-2">Home</a>
-                    <a href="https://www.eyeunit.ai/blog" class="text-white hover:text-gray-300 mx-2">Blog</a>
-                    <a href="https://www.eyeunit.ai/contact" class="text-white hover:text-gray-300 mx-2">Contact</a>
-                </nav>
-            </div>
+    
+    <footer class="bg-gray-100 mt-12">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-600">
+            &copy; 2024 EyeUnit.ai. All rights reserved.
         </div>
     </footer>
 </body>
