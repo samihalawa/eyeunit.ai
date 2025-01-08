@@ -1,0 +1,1 @@
+/Users/samihalawa/Documents/Cline/MCP/function-list-server/src/index.ts

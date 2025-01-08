@@ -1,0 +1,13 @@
+{
+  "build": {
+    "command": "npm run build",
+    "output": "dist",
+    "environment": {
+      "NODE_VERSION": "18"
+    }
+  },
+  "routes": [
+    { "pattern": "/blog/*", "script": "blog/build.js" },
+    { "pattern": "/*", "script": null }
+  ]
+} 

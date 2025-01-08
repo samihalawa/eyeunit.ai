@@ -1,0 +1,26 @@
+{
+  "name": "eyeunit-blog",
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "node deploy.js",
+    "build": "node build.js",
+    "watch": "nodemon build.js",
+    "dev": "./start.sh",
+    "clean": "rm -rf dist/*",
+    "start": "npm run build && python3 -m http.server 8000",
+    "test": "node test/blog-test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "EyeUnit.ai Blog",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^11.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "main": "build.js"
+}
