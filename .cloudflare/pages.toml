@@ -1,10 +1,18 @@
 [build]
 command = "npm run build"
-publish = "dist"
-node_bundler = "esbuild"
+output_directory = "dist"
+base_directory = ""
 
 [build.environment]
-NODE_VERSION = "20"
+NODE_VERSION = "18"
+
+[site]
+bucket = "./dist"
+entry-point = "workers-site"
+
+[env.production]
+name = "eyeunit"
+route = "eyeunit.pages.dev/*"
 
 [[redirects]]
 from = "/*"

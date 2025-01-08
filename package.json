@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node blog/build.js && serve dist",
-    "build": "node blog/build.js && cp index.html dist/ && cp -r assets dist/",
-    "test": "jest"
+    "build": "node build.js",
+    "test": "jest",
+    "pages:deploy": "npm run build && wrangler pages publish dist --project-name=eyeunit"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
