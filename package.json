@@ -1,20 +1,8 @@
 {
-  "name": "eyeunit.ai",
+  "name": "blog",
   "version": "1.0.0",
-  "description": "EyeUnit.ai - AI-powered ophthalmology solutions",
-  "main": "index.js",
   "scripts": {
-    "dev": "node blog/build.js && serve dist",
-    "build": "node blog/build.js && cp index.html dist/ && cp -r assets dist/",
-    "test": "jest",
-    "pages:deploy": "npm run build && wrangler pages publish dist --project-name=eyeunit"
-  },
-  "dependencies": {
-    "gray-matter": "^4.0.3",
-    "marked": "^4.0.12",
-    "serve": "^14.0.1"
-  },
-  "devDependencies": {
-    "jest": "^29.0.0"
+    "build": "node blog/build.js",
+    "start": "node server.js"
   }
 }
