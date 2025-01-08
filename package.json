@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node blog/build.js && serve dist",
-    "build": "node build.js",
+    "build": "node blog/build.js && cp index.html dist/ && cp -r assets dist/",
     "test": "jest",
     "pages:deploy": "npm run build && wrangler pages publish dist --project-name=eyeunit"
   },
