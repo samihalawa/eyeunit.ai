@@ -50,9 +50,17 @@
         "name": "EyeUnit.ai",
         "url": "https://www.eyeunit.ai",
         "logo": "https://www.eyeunit.ai/logo.png",
-        "description": "AI-powered ophthalmology solutions"
+        "sameAs": [
+            "https://twitter.com/eyeunitai",
+            "https://linkedin.com/company/eyeunit-ai"
+        ]
     }
     </script>
+
+    <!-- Add resource hints -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://api.eyeunit.ai">
 
     <style>
         :root {
@@ -68,7 +76,7 @@
             background-color: var(--color-background);
             color: var(--color-text);
             scroll-behavior: smooth;
-            transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+            transition: all var(--transition-duration) ease;
         }
 
         .gradient-text {
@@ -78,7 +86,13 @@
         }
 
         .advanced-shadow {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .advanced-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2);
         }
 
         .blob {
@@ -92,6 +106,7 @@
             max-width: 100%;
             height: auto;
             animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
         }
 
         @keyframes float {
@@ -110,7 +125,7 @@
         .newsletter-input:focus {
             border-color: var(--color-primary);
             outline: none;
-            ring-2 ring-blue-500 ring-opacity-50;
+            @apply ring-2 ring-blue-500 ring-opacity-50;
         }
 
         .loader {
@@ -137,10 +152,28 @@
         }
 
         * {
-            transition: background-color var(--transition-duration) ease,
-                        color var(--transition-duration) ease,
-                        border-color var(--transition-duration) ease,
-                        box-shadow var(--transition-duration) ease;
+            transition: all var(--transition-duration) ease;
+        }
+
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: clamp(3rem, 5vw, 4.5rem);
+                line-height: 1.1;
+            }
+            
+            h2 {
+                font-size: clamp(2rem, 4vw, 3rem);
+            }
+            
+            p {
+                font-size: clamp(1rem, 1.5vw, 1.25rem);
+            }
+        }
+
+        .container {
+            max-width: 1440px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 
@@ -191,13 +224,11 @@
                 <a href="/solutions" class="hover:text-blue-600 transition">Solutions</a>
                 <a href="/blog" class="hover:text-blue-600 transition">Blog</a>
                 <button 
-                    @click="darkMode = !darkMode; 
-                            localStorage.setItem('darkMode', darkMode);
-                            document.documentElement.classList.toggle('dark', darkMode)"
+                    @click="toggleDarkMode()"
                     class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300"
                     aria-label="Toggle Dark Mode"
                 >
-                    <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="transition-transform duration-300" :style="darkMode ? 'transform: rotate(180deg)' : ''"></i>
+                    <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="transition-transform duration-300"></i>
                 </button>
                 <a 
                     href="#contact" 
@@ -226,11 +257,12 @@
             <!-- Mobile Menu Toggle -->
             <div class="md:hidden">
                 <button 
-                    @click="mobileMenu = !mobileMenu"
+                    @click="toggleMobileMenu()"
                     class="text-2xl relative z-50"
-                    aria-label="Toggle Mobile Menu"
                     aria-expanded="mobileMenu"
+                    aria-controls="mobile-menu"
                 >
+                    <span class="sr-only">Toggle menu</span>
                     <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'" class="transition-transform duration-300"></i>
                 </button>
             </div>
@@ -252,12 +284,8 @@
         <!-- Mobile Menu Content -->
         <div 
             x-show="mobileMenu"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 transform -translate-y-4"
-            x-transition:enter-end="opacity-100 transform translate-y-0"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 transform translate-y-0"
-            x-transition:leave-end="opacity-0 transform -translate-y-4"
+            @touchstart.prevent="handleTouchStart($event)"
+            @touchmove.prevent="handleTouchMove($event)"
             class="fixed inset-x-0 top-16 bg-white dark:bg-gray-800 shadow-lg z-40"
             @click.away="mobileMenu = false"
         >
@@ -298,73 +326,76 @@
     </nav>
     <!-- Hero Section -->
     <header id="home" class="relative min-h-screen flex items-center justify-center text-center pt-20">
-        <div class="container mx-auto px-6 relative z-10">
-            <div id="hero-scene" class="absolute inset-0 pointer-events-none"></div>
-            
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">
-                Unlocking Vision with AI Innovation
-            </h1>
-            
-            <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-10 text-gray-600 dark:text-gray-300" id="hero-subtitle">
-                EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
-            </p>
-            
-            <div class="flex justify-center space-x-4">
-                <a 
-                    href="/technologies"
-                    @click.prevent="handleExplore()" 
-                    class="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition transform hover:scale-105 advanced-shadow"
-                >
-                    Explore Technologies
-                </a>
-                <a 
-                    href="#research"
-                    @click.prevent="handleResearch()"
-                    class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition transform hover:scale-105"
-                >
-                    View Research
-                </a>
-            </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text content -->
+                <div class="lg:text-left">
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 gradient-text leading-tight">
+                        Unlocking Vision with AI Innovation
+                    </h1>
+                    
+                    <p class="text-xl lg:text-2xl mb-10 text-gray-600 dark:text-gray-300">
+                        EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-start">
+                        <button 
+                            @click="handleExplore()"
+                            class="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition transform hover:scale-105 advanced-shadow text-lg"
+                        >
+                            Explore Technologies
+                        </button>
+                        <button 
+                            @click="handleResearch()"
+                            class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition transform hover:scale-105 text-lg"
+                        >
+                            View Research
+                        </button>
+                    </div>
+                </div>
 
-            <div class="relative">
-                <div x-show="!imageLoaded" class="absolute inset-0 bg-gray-200 animate-pulse"></div>
-                <img 
-                    @load="imageLoaded = true"
-                    x-ref="heroImage"
-                    src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
-                    alt="Advanced AI technology visualization showing neural networks for medical image analysis"
-                    class="hero-image mt-10 w-full max-w-4xl mx-auto"
-                    loading="lazy"
-                    decoding="async"
-                    fetchpriority="high"
-                    onerror="this.src='https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800'"
-                >
+                <!-- Hero image -->
+                <div class="relative lg:order-last">
+                    <div x-show="!imageLoaded" class="absolute inset-0 bg-gray-200 animate-pulse rounded-2xl"></div>
+                    <img 
+                        @load="imageLoaded = true"
+                        x-ref="heroImage"
+                        src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
+                        alt="Advanced AI technology visualization"
+                        class="hero-image w-full max-w-2xl mx-auto rounded-2xl shadow-2xl"
+                        width="800"
+                        height="600"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="high"
+                    >
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Technologies Section -->
-    <section id="technologies" class="py-20 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+    <section id="technologies" class="py-32 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 gradient-text">
                 Our Advanced AI Technologies
             </h2>
             
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
                 <!-- Technology Card -->
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Neural Diagnostics">
+                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Neural Diagnostics">
                     <i class="fas fa-brain text-4xl text-blue-600 mb-4"></i>
                     <h3 class="text-2xl font-semibold mb-4">Neural Diagnostics</h3>
                     <p>Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
                 </div>
                 
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Predictive Analytics">
+                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Predictive Analytics">
                     <i class="fas fa-chart-line text-4xl text-green-600 mb-4"></i>
                     <h3 class="text-2xl font-semibold mb-4">Predictive Analytics</h3>
                     <p>Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
                 </div>
                 
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Research Innovation">
+                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Research Innovation">
                     <i class="fas fa-microscope text-4xl text-purple-600 mb-4"></i>
                     <h3 class="text-2xl font-semibold mb-4">Research Innovation</h3>
                     <p>EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
@@ -430,99 +461,101 @@
     </section>
 
     <!-- Research Paper Section -->
-    <section id="research-paper" class="py-20 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
-                Latest Research Publication
-            </h2>
+    <section id="research-paper" class="py-32 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+                    Latest Research Publication
+                </h2>
 
-            <div class="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-700 p-8 rounded-lg advanced-shadow">
-                <h3 class="text-3xl font-bold mb-6">Medical Image Analysis and Multi-Step Prompt Engineering Innovation</h3>
-                
-                <div class="prose dark:prose-invert max-w-none">
-                    <!-- Research Abstract -->
-                    <p class="text-lg mb-8 text-gray-600 dark:text-gray-300">
-                        This research explores innovative approaches in automated precision diagnostics in medical image analysis through multi-step prompt engineering combined with Vision Language Models (VLM) and Retrieval Augmented Generation (RAG) technologies. Our work emphasizes breakthrough achievements in flexible application across various medical scenarios without pre-training, through dynamically optimized meta-prompt generation.
-                    </p>
-
-                    <!-- Key Research Areas -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-12">
-                        <!-- OCT Analysis -->
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
-                            <h4 class="text-xl font-semibold mb-4">OCT Image Analysis</h4>
-                            <img 
-                                src="https://res.cloudinary.com/eyeunit/image/upload/v1/medical/oct-posterior-1.jpg" 
-                                alt="Optical Coherence Tomography (OCT) scan showing detailed retinal layers"
-                                class="w-full h-48 object-cover rounded-lg mb-4"
-                                loading="lazy"
-                            >
-                            <p class="text-gray-600 dark:text-gray-300">
-                                Precise evaluation of macular conditions and ophthalmic structural changes through retinal OCT scanning.
-                            </p>
-                        </div>
-
-                        <!-- MRI Analysis -->
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
-                            <h4 class="text-xl font-semibold mb-4">Abdominal MRI Analysis</h4>
-                            <img 
-                                src="https://res.cloudinary.com/eyeunit/image/upload/v1/medical/abdominal-mri.jpg"
-                                alt="High-resolution MRI scan demonstrating advanced medical imaging capabilities"
-                                class="w-full h-48 object-cover rounded-lg mb-4"
-                                loading="lazy"
-                            >
-                            <p class="text-gray-600 dark:text-gray-300">
-                                Advanced analysis of hepatobiliary system morphology and vascular structures.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Technical Innovation -->
-                    <div class="bg-blue-50 dark:bg-gray-600 p-6 rounded-lg mb-8">
-                        <h4 class="text-xl font-semibold mb-4">Technical Innovations</h4>
-                        <ul class="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300">
-                            <li>Intelligent prompt generation for optimal diagnostic strategies</li>
-                            <li>Multi-level task decomposition of complex medical diagnostics</li>
-                            <li>VLM-RAG fusion technology for real-time medical literature support</li>
-                            <li>Zero-shot transfer capability for new scenario applications</li>
-                        </ul>
-                    </div>
-
-                    <!-- Research Flow Diagram -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg mb-8">
-                        <h4 class="text-xl font-semibold mb-4">Research Workflow</h4>
-                        <div class="mermaid">
-                            graph TB
-                                A[Dynamic Meta-Prompt System] --> B[Multi-Dimensional Prompt Generation]
-                                B --> C[VLM & RAG Technology Integration]
-                                C --> D[Intelligent Diagnostic Process]
-                                D --> E[Cross-Scenario Application]
-                                E --> F[Automated Medical Analysis]
-                        </div>
-                    </div>
-
-                    <!-- Research Conclusion -->
-                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                        <h4 class="text-xl font-semibold mb-4">Research Impact</h4>
-                        <p class="text-gray-600 dark:text-gray-300">
-                            Our dynamic meta-prompt methodology, combined with advanced VLM and RAG technologies, has successfully overcome traditional limitations in medical image analysis. This innovation has not only significantly improved diagnostic efficiency and accuracy but also established new standards in medical imaging AI through zero-shot scenario transfer and dynamic prompt generation.
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg advanced-shadow">
+                    <h3 class="text-3xl font-bold mb-6">Medical Image Analysis and Multi-Step Prompt Engineering Innovation</h3>
+                    
+                    <div class="prose dark:prose-invert max-w-none">
+                        <!-- Research Abstract -->
+                        <p class="text-lg mb-8 text-gray-600 dark:text-gray-300">
+                            This research explores innovative approaches in automated precision diagnostics in medical image analysis through multi-step prompt engineering combined with Vision Language Models (VLM) and Retrieval Augmented Generation (RAG) technologies. Our work emphasizes breakthrough achievements in flexible application across various medical scenarios without pre-training, through dynamically optimized meta-prompt generation.
                         </p>
-                    </div>
-                </div>
 
-                <!-- Research Actions -->
-                <div class="mt-8 flex justify-center space-x-4">
-                    <a 
-                        href="mailto:hello@eyeunit.ai?subject=Research%20Paper%20Request&body=I%20would%20like%20to%20request%20access%20to%20the%20research%20paper%20on%20Medical%20Image%20Analysis%20and%20Multi-Step%20Prompt%20Engineering%20Innovation."
-                        class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
-                    >
-                        Request Full Paper
-                    </a>
-                    <a 
-                        href="mailto:hello@eyeunit.ai?subject=Research%20Team%20Contact" 
-                        class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition"
-                    >
-                        Contact Research Team
-                    </a>
+                        <!-- Key Research Areas -->
+                        <div class="grid md:grid-cols-2 gap-8 mb-12">
+                            <!-- OCT Analysis -->
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
+                                <h4 class="text-xl font-semibold mb-4">OCT Image Analysis</h4>
+                                <img 
+                                    src="https://res.cloudinary.com/eyeunit/image/upload/v1/medical/oct-posterior-1.jpg" 
+                                    alt="Optical Coherence Tomography (OCT) scan showing detailed retinal layers"
+                                    class="w-full h-48 object-cover rounded-lg mb-4"
+                                    loading="lazy"
+                                >
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Precise evaluation of macular conditions and ophthalmic structural changes through retinal OCT scanning.
+                                </p>
+                            </div>
+
+                            <!-- MRI Analysis -->
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg">
+                                <h4 class="text-xl font-semibold mb-4">Abdominal MRI Analysis</h4>
+                                <img 
+                                    src="https://res.cloudinary.com/eyeunit/image/upload/v1/medical/abdominal-mri.jpg"
+                                    alt="High-resolution MRI scan demonstrating advanced medical imaging capabilities"
+                                    class="w-full h-48 object-cover rounded-lg mb-4"
+                                    loading="lazy"
+                                >
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Advanced analysis of hepatobiliary system morphology and vascular structures.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Technical Innovation -->
+                        <div class="bg-blue-50 dark:bg-gray-600 p-6 rounded-lg mb-8">
+                            <h4 class="text-xl font-semibold mb-4">Technical Innovations</h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300">
+                                <li>Intelligent prompt generation for optimal diagnostic strategies</li>
+                                <li>Multi-level task decomposition of complex medical diagnostics</li>
+                                <li>VLM-RAG fusion technology for real-time medical literature support</li>
+                                <li>Zero-shot transfer capability for new scenario applications</li>
+                            </ul>
+                        </div>
+
+                        <!-- Research Flow Diagram -->
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg mb-8">
+                            <h4 class="text-xl font-semibold mb-4">Research Workflow</h4>
+                            <div class="mermaid">
+                                graph TB
+                                    A[Dynamic Meta-Prompt System] --> B[Multi-Dimensional Prompt Generation]
+                                    B --> C[VLM & RAG Technology Integration]
+                                    C --> D[Intelligent Diagnostic Process]
+                                    D --> E[Cross-Scenario Application]
+                                    E --> F[Automated Medical Analysis]
+                            </div>
+                        </div>
+
+                        <!-- Research Conclusion -->
+                        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold mb-4">Research Impact</h4>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Our dynamic meta-prompt methodology, combined with advanced VLM and RAG technologies, has successfully overcome traditional limitations in medical image analysis. This innovation has not only significantly improved diagnostic efficiency and accuracy but also established new standards in medical imaging AI through zero-shot scenario transfer and dynamic prompt generation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Research Actions -->
+                    <div class="mt-8 flex justify-center space-x-4">
+                        <a 
+                            href="mailto:hello@eyeunit.ai?subject=Research%20Paper%20Request&body=I%20would%20like%20to%20request%20access%20to%20the%20research%20paper%20on%20Medical%20Image%20Analysis%20and%20Multi-Step%20Prompt%20Engineering%20Innovation."
+                            class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+                        >
+                            Request Full Paper
+                        </a>
+                        <a 
+                            href="mailto:hello@eyeunit.ai?subject=Research%20Team%20Contact" 
+                            class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition"
+                        >
+                            Contact Research Team
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -809,81 +842,72 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-blue-50 dark:bg-gray-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+    <section id="contact" class="py-32 bg-blue-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 gradient-text">
                 Connect with EyeUnit.ai
             </h2>
             
-            <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg advanced-shadow">
+            <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-xl advanced-shadow">
                 <form @submit.prevent="submitForm" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block mb-2" for="name">Name</label>
+                            <label class="block mb-2 text-gray-700 dark:text-gray-300" for="name">Name</label>
                             <input 
                                 type="text"
                                 id="name"
-                                x-ref="nameInput"
-                                @focus="$nextTick(() => $refs.nameInput.focus())"
-                                class="newsletter-input"
-                                :class="{'border-red-500 focus:border-red-500 focus:ring-red-500': formErrors.name, 'focus:border-blue-500 focus:ring-blue-500': !formErrors.name}"
-                                placeholder="Your Name"
-                                required
-                                minlength="2"
-                                pattern="[A-Za-z\s]+"
                                 x-model="name"
-                                @input="validateField('name')"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                placeholder="Your name"
+                                required
                             >
-                            <p x-show="formErrors.name" class="mt-1 text-sm text-red-600 dark:text-red-500" role="alert">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                Please enter a valid name (letters and spaces only)
-                            </p>
+                            <p 
+                                x-show="errors.name" 
+                                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                                x-text="errors.name"
+                            ></p>
                         </div>
                         <div>
-                            <label class="block mb-2" for="email">Email</label>
+                            <label class="block mb-2 text-gray-700 dark:text-gray-300" for="email">Email</label>
                             <input 
-                                type="email" 
+                                type="email"
                                 id="email"
-                                class="newsletter-input"
-                                :class="{'border-red-500 focus:border-red-500 focus:ring-red-500': formErrors.email, 'focus:border-blue-500 focus:ring-blue-500': !formErrors.email}"
-                                placeholder="Your Email"
-                                required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                 x-model="email"
-                                @input="validateField('email')"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                placeholder="your.email@example.com"
+                                required
                             >
-                            <p x-show="formErrors.email" class="mt-1 text-sm text-red-600 dark:text-red-500" role="alert">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                Please enter a valid email address
-                            </p>
+                            <p 
+                                x-show="errors.email" 
+                                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                                x-text="errors.email"
+                            ></p>
                         </div>
                     </div>
-                    
-                    <div class="col-span-2">
-                        <label class="block mb-2" for="message">Message</label>
-                        <textarea 
+                    <div>
+                        <label class="block mb-2 text-gray-700 dark:text-gray-300" for="message">Message</label>
+                        <textarea
                             id="message"
-                            class="newsletter-input h-32"
-                            :class="{'border-red-500 focus:border-red-500 focus:ring-red-500': formErrors.message, 'focus:border-blue-500 focus:ring-blue-500': !formErrors.message}"
-                            placeholder="Your Message"
-                            required
                             x-model="message"
-                            @input="validateField('message')"
+                            rows="4"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            placeholder="Your message here..."
+                            required
                         ></textarea>
-                        <p x-show="formErrors.message" class="mt-1 text-sm text-red-600 dark:text-red-500" role="alert">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
-                            Please enter a message (minimum 10 characters)
-                        </p>
+                        <p 
+                            x-show="errors.message" 
+                            class="mt-1 text-sm text-red-600 dark:text-red-400"
+                            x-text="errors.message"
+                        ></p>
                     </div>
-                    
-                    <button 
+                    <button
                         type="submit"
-                        class="relative px-8 py-3 bg-blue-600 text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
-                        :disabled="isSubmitting || !isFormValid"
+                        class="w-full px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+                        :disabled="isSubmitting"
                     >
                         <span x-show="!isSubmitting">Send Message</span>
                         <span x-show="isSubmitting" class="flex items-center justify-center">
-                            <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
@@ -905,36 +929,26 @@
                     email: '',
                     message: '',
                     isSubmitting: false,
-                    subscriptionSuccess: false,
-                    formErrors: {
-                        name: false,
-                        email: false,
-                        message: false
-                    },
-                    currentPage: 1,
-                    totalPages: 3,
-                    imageLoaded: false,
-                    formSubmitted: false,
+                    errors: {},
                     
-                    get isFormValid() {
-                        return this.name.length >= 2 && 
-                               /^[a-zA-Z\s]+$/.test(this.name) &&
-                               /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email) &&
-                               this.message.length >= 10;
-                    },
-                    
-                    validateField(field) {
-                        switch(field) {
-                            case 'name':
-                                this.formErrors.name = this.name.length < 2 || !/^[a-zA-Z\s]+$/.test(this.name);
-                                break;
-                            case 'email':
-                                this.formErrors.email = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
-                                break;
-                            case 'message':
-                                this.formErrors.message = this.message.length < 10;
-                                break;
+                    validateForm() {
+                        this.errors = {};
+                        
+                        if (!this.name.trim()) {
+                            this.errors.name = 'Name is required';
                         }
+                        
+                        if (!this.email.trim()) {
+                            this.errors.email = 'Email is required';
+                        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
+                            this.errors.email = 'Please enter a valid email';
+                        }
+                        
+                        if (!this.message.trim()) {
+                            this.errors.message = 'Message is required';
+                        }
+                        
+                        return Object.keys(this.errors).length === 0;
                     },
                     
                     async submitForm() {
@@ -942,11 +956,9 @@
                         
                         this.isSubmitting = true;
                         try {
-                            const subject = encodeURIComponent('Contact Form Submission');
+                            const subject = encodeURIComponent('Contact Form');
                             const body = encodeURIComponent(
-                                `Name: ${this.name}\n` +
-                                `Email: ${this.email}\n\n` +
-                                `Message:\n${this.message}`
+                                `Name: ${this.name}\nEmail: ${this.email}\n\nMessage:\n${this.message}`
                             );
                             window.location.href = `mailto:hello@eyeunit.ai?subject=${subject}&body=${body}`;
                             this.resetForm();
@@ -956,18 +968,10 @@
                     },
                     
                     resetForm() {
-                        if (this.name || this.email || this.message) {
-                            if (confirm('Are you sure you want to clear the form?')) {
-                                this.name = '';
-                                this.email = '';
-                                this.message = '';
-                                this.formErrors = {
-                                    name: false,
-                                    email: false,
-                                    message: false
-                                };
-                            }
-                        }
+                        this.name = '';
+                        this.email = '';
+                        this.message = '';
+                        this.errors = {};
                     },
                     toggleDarkMode() {
                         this.darkMode = !this.darkMode;
@@ -975,39 +979,29 @@
                         document.documentElement.classList.toggle('dark', this.darkMode);
                     },
                     init() {
-                        const isDark = localStorage.getItem('darkMode') === 'true';
-                        this.darkMode = isDark;
-                        document.documentElement.classList.toggle('dark', isDark);
-                        this.subscribeEmail = '';
-                        this.subscribeError = '';
-                        this.newsletterSuccess = false;
-                        // Close mobile menu when clicking outside
-                        document.addEventListener('click', (e) => {
-                            if (this.mobileMenu && !e.target.closest('nav')) {
-                                this.mobileMenu = false;
-                            }
-                        });
+                        this.darkMode = localStorage.getItem('darkMode') === 'true';
+                        document.documentElement.classList.toggle('dark', this.darkMode);
+                        
+                        window.addEventListener('scroll', () => {
+                            this.scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                        }, { passive: true });
                     },
-                    subscribe() {
-                        const subject = encodeURIComponent('Newsletter Subscription');
-                        const body = encodeURIComponent(
-                            `Please subscribe me to the newsletter.\n\n` +
-                            `Email: ${this.subscribeEmail}`
-                        );
-                        window.location.href = `mailto:hello@eyeunit.ai?subject=${subject}&body=${body}`;
-                        this.subscribeEmail = '';
-                        this.newsletterSuccess = true;
+                    toggleMobileMenu() {
+                        this.mobileMenu = !this.mobileMenu;
+                        document.body.style.overflow = this.mobileMenu ? 'hidden' : '';
                     },
-                    handlePagination(direction) {
-                        if (direction === 'next' && this.currentPage < this.totalPages) {
-                            this.currentPage++;
-                        } else if (direction === 'prev' && this.currentPage > 1) {
-                            this.currentPage--;
+                    handleExplore() {
+                        const techSection = document.querySelector('#technologies');
+                        if (techSection) {
+                            techSection.scrollIntoView({ behavior: 'smooth' });
+                            this.mobileMenu = false;
                         }
-                        // Scroll to blog section after page change
-                        const blogSection = document.querySelector('#blog');
-                        if (blogSection) {
-                            blogSection.scrollIntoView({ behavior: 'smooth' });
+                    },
+                    handleResearch() {
+                        const researchSection = document.querySelector('#research');
+                        if (researchSection) {
+                            researchSection.scrollIntoView({ behavior: 'smooth' });
+                            this.mobileMenu = false;
                         }
                     },
                     handleTestimonial(direction) {
@@ -1016,28 +1010,6 @@
                             this.currentTestimonial = (this.currentTestimonial + 1) % totalTestimonials;
                         } else {
                             this.currentTestimonial = (this.currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-                        }
-                    },
-                    toggleMobileMenu() {
-                        this.mobileMenu = !this.mobileMenu;
-                        if (this.mobileMenu) {
-                            document.body.style.overflow = 'hidden';
-                        } else {
-                            document.body.style.overflow = '';
-                        }
-                    },
-                    handleExplore() {
-                        const techSection = document.querySelector('#technologies');
-                        if (techSection) {
-                            techSection.scrollIntoView({ behavior: 'smooth' });
-                            if (this.mobileMenu) this.mobileMenu = false;
-                        }
-                    },
-                    handleResearch() {
-                        const researchSection = document.querySelector('#research');
-                        if (researchSection) {
-                            researchSection.scrollIntoView({ behavior: 'smooth' });
-                            if (this.mobileMenu) this.mobileMenu = false;
                         }
                     }
                 }
@@ -1184,6 +1156,14 @@
                 chart.resize();
             }
         });
+
+        // Optimize animations with requestAnimationFrame
+        function animateScroll() {
+            requestAnimationFrame(() => {
+                scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            });
+        }
+        window.addEventListener('scroll', animateScroll, { passive: true });
     </script>
 
     <!-- Live Chat Integration (Optional) -->
@@ -1215,33 +1195,28 @@
     </script>
 
     <!-- Add after contact form -->
-    <div 
-        x-show="formSubmitted" 
+    <div
+        x-show="formSubmitted"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
         class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg"
-        x-transition
     >
-        <p>Thank you for your message! We'll get back to you at <span x-text="email"></span></p>
+        <p class="text-center">Thank you for your message! We'll get back to you soon.</p>
     </div>
 
     <!-- Add before closing body tag -->
     <button 
         @click="window.scrollTo({top: 0, behavior: 'smooth'})"
         x-show="scrollProgress > 20"
-        class="fixed bottom-8 right-8 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transform hover:scale-110 transition-all duration-300"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-10"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-10"
+        class="fixed bottom-8 right-8 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transform hover:scale-110 transition-all duration-300 z-50"
         aria-label="Scroll to Top"
-        title="Scroll to Top"
     >
         <i class="fas fa-arrow-up"></i>
         <span class="sr-only">Scroll to Top</span>
     </button>
 
-    <div x-show="Object.values(formErrors).some(Boolean)" class="text-red-500 text-sm mt-2">
+    <div x-show="Object.values(errors).some(Boolean)" class="text-red-500 text-sm mt-2">
         Please fix the errors above before submitting.
     </div>
 
@@ -1289,6 +1264,18 @@
                 }
             });
         });
+    </script>
+
+    <!-- Add system preference detection -->
+    <script>
+        function detectColorScheme() {
+            if (localStorage.getItem('darkMode') === null && 
+                window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+                return true;
+            }
+            return localStorage.getItem('darkMode') === 'true';
+        }
     </script>
 </body>
 </html>
