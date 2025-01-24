@@ -62,6 +62,10 @@
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="dns-prefetch" href="https://api.eyeunit.ai">
 
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <style>
         :root {
             --color-primary: #3B82F6;
@@ -175,6 +179,118 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+        }
+        
+        .nav-link {
+            @apply px-4 py-2 rounded-lg transition-all duration-200;
+        }
+        
+        .nav-link:hover {
+            @apply bg-blue-50 dark:bg-gray-700;
+        }
+        
+        .nav-link.active {
+            @apply bg-blue-100 dark:bg-gray-600;
+        }
+
+        .dark-mode-toggle {
+            @apply p-3 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200;
+        }
+
+        .loading-skeleton {
+            @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg;
+        }
+
+        /* Add responsive utilities */
+        .mobile-menu-container {
+            @apply fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out;
+        }
+        
+        .mobile-menu-container.hidden {
+            transform: translateX(-100%);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                @apply px-4 mx-auto w-full max-w-none;
+            }
+            
+            .hero-content {
+                @apply text-center py-8;
+            }
+            
+            .hero-buttons {
+                @apply flex-col space-y-4 w-full;
+            }
+            
+            .nav-menu {
+                @apply hidden;
+            }
+            
+            .mobile-menu {
+                @apply block;
+            }
+
+            .team-card {
+                @apply mx-auto max-w-sm;
+            }
+
+            .research-grid {
+                @apply grid-cols-1 gap-6;
+            }
+
+            .contact-form {
+                @apply p-4;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            h2 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+            
+            p {
+                font-size: clamp(0.875rem, 4vw, 1rem);
+            }
+        }
+
+        /* Fix form elements on mobile */
+        .form-input, .form-textarea {
+            @apply w-full px-3 py-2 text-base;
+            @apply border border-gray-300 rounded-lg;
+            @apply focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+        }
+
+        /* Fix mobile menu */
+        .mobile-menu-container {
+            @apply fixed inset-0 z-50 bg-white dark:bg-gray-800;
+            @apply transform transition-transform duration-300;
+        }
+
+        .mobile-menu-container.hidden {
+            @apply -translate-x-full;
+        }
+
+        /* Fix image responsiveness */
+        .responsive-image {
+            @apply w-full h-auto object-cover;
+            @apply max-w-full mx-auto;
+        }
+
+        /* Fix button responsiveness */
+        .responsive-button {
+            @apply w-full sm:w-auto;
+            @apply px-6 py-3;
+            @apply flex items-center justify-center;
+            @apply transition-all duration-200;
+        }
     </style>
 
     <!-- Add Mermaid.js CDN link -->
@@ -210,164 +326,79 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-md shadow-lg">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
                 <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
-            </div>
-
-            <div class="hidden md:flex space-x-6 items-center">
-                <a href="/" class="hover:text-blue-600 transition">Home</a>
-                <a href="/technologies" class="hover:text-blue-600 transition">Technologies</a>
-                <a href="/research" class="hover:text-blue-600 transition">Research</a>
-                <a href="/research-paper" class="hover:text-blue-600 transition">Research Paper</a>
-                <a href="/solutions" class="hover:text-blue-600 transition">Solutions</a>
-                <a href="/blog" class="hover:text-blue-600 transition">Blog</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#technologies" class="nav-link">Technologies</a>
+                    <a href="#research" class="nav-link">Research</a>
+                    <a href="#solutions" class="nav-link">Solutions</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <button 
+                        @click="toggleDarkMode()"
+                        class="dark-mode-toggle"
+                    >
+                        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
                 <button 
-                    @click="toggleDarkMode()"
-                    class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300"
-                    aria-label="Toggle Dark Mode"
+                    @click="mobileMenu = !mobileMenu"
+                    class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                    <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="transition-transform duration-300"></i>
-                </button>
-                <a 
-                    href="#contact" 
-                    class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
-                >
-                    Contact
-                </a>
-                <a 
-                    href="https://api.whatsapp.com/send?phone=34679794037"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition flex items-center gap-2"
-                >
-                    <i class="fab fa-whatsapp"></i>
-                    WhatsApp
-                </a>
-                <a 
-                    href="mailto:hello@eyeunit.ai"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition flex items-center gap-2"
-                >
-                    <i class="fas fa-envelope"></i>
-                    Email
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <div class="md:hidden">
-                <button 
-                    @click="toggleMobileMenu()"
-                    class="text-2xl relative z-50"
-                    aria-expanded="mobileMenu"
-                    aria-controls="mobile-menu"
-                >
-                    <span class="sr-only">Toggle menu</span>
-                    <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'" class="transition-transform duration-300"></i>
+                    <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu Overlay -->
+        
+        <!-- Mobile Menu -->
         <div 
             x-show="mobileMenu"
             x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            @click="mobileMenu = false"
-            class="fixed inset-0 bg-black bg-opacity-50 z-40"
-        ></div>
-
-        <!-- Mobile Menu Content -->
-        <div 
-            x-show="mobileMenu"
-            @touchstart.prevent="handleTouchStart($event)"
-            @touchmove.prevent="handleTouchMove($event)"
-            class="fixed inset-x-0 top-16 bg-white dark:bg-gray-800 shadow-lg z-40"
-            @click.away="mobileMenu = false"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            class="md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700"
         >
-            <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="/" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#home').scrollIntoView({behavior: 'smooth'})">Home</a>
-                <a href="/technologies" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#technologies').scrollIntoView({behavior: 'smooth'})">Technologies</a>
-                <a href="/research" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#research').scrollIntoView({behavior: 'smooth'})">Research</a>
-                <a href="/research-paper" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#research-paper').scrollIntoView({behavior: 'smooth'})">Research Paper</a>
-                <a href="/solutions" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#solutions').scrollIntoView({behavior: 'smooth'})">Solutions</a>
-                <a href="/blog" class="block py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition-colors" @click.prevent="mobileMenu = false; document.querySelector('#blog').scrollIntoView({behavior: 'smooth'})">Blog</a>
-                <a 
-                    href="#contact" 
-                    class="block py-2 bg-blue-600 text-white text-center rounded-full hover:bg-blue-700 transition-colors"
-                    @click.prevent="mobileMenu = false; document.querySelector('#contact').scrollIntoView({behavior: 'smooth'})"
-                >
-                    Contact
-                </a>
-                <a 
-                    href="https://api.whatsapp.com/send?phone=34679794037"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="block py-2 bg-green-600 text-white text-center rounded-full hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
-                    @click="mobileMenu = false"
-                >
-                    <i class="fab fa-whatsapp"></i>
-                    WhatsApp
-                </a>
-                <a 
-                    href="mailto:hello@eyeunit.ai"
-                    class="block py-2 bg-blue-600 text-white text-center rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                    @click="mobileMenu = false"
-                >
-                    <i class="fas fa-envelope"></i>
-                    Email
-                </a>
+            <div class="container mx-auto py-4 px-4 space-y-4">
+                <a href="#home" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                <a href="#technologies" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Technologies</a>
+                <a href="#research" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Research</a>
+                <a href="#solutions" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Solutions</a>
+                <a href="#contact" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
             </div>
         </div>
     </nav>
     <!-- Hero Section -->
-    <header id="home" class="relative min-h-screen flex items-center justify-center text-center pt-20">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Text content -->
-                <div class="lg:text-left">
-                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 gradient-text leading-tight">
+    <header class="min-h-screen pt-20 flex items-center hero-gradient">
+        <div class="container mx-auto px-4 py-12 md:py-20">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="text-center md:text-left space-y-6">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text leading-tight animate__animated animate__fadeIn">
                         Unlocking Vision with AI Innovation
                     </h1>
-                    
-                    <p class="text-xl lg:text-2xl mb-10 text-gray-600 dark:text-gray-300">
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300">
                         EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
                     </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-start">
-                        <button 
-                            @click="handleExplore()"
-                            class="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition transform hover:scale-105 advanced-shadow text-lg"
-                        >
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <button class="responsive-button bg-blue-600 text-white rounded-full hover:bg-blue-700">
                             Explore Technologies
                         </button>
-                        <button 
-                            @click="handleResearch()"
-                            class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition transform hover:scale-105 text-lg"
-                        >
+                        <button class="responsive-button border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
                             View Research
                         </button>
                     </div>
                 </div>
-
-                <!-- Hero image -->
-                <div class="relative lg:order-last">
-                    <div x-show="!imageLoaded" class="absolute inset-0 bg-gray-200 animate-pulse rounded-2xl"></div>
+                <div class="hidden md:block">
                     <img 
-                        @load="imageLoaded = true"
-                        x-ref="heroImage"
                         src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
-                        alt="Advanced AI technology visualization"
-                        class="hero-image w-full max-w-2xl mx-auto rounded-2xl shadow-2xl"
-                        width="800"
-                        height="600"
+                        alt="AI Vision Technology"
+                        class="responsive-image rounded-2xl shadow-2xl"
                         loading="lazy"
-                        decoding="async"
-                        fetchpriority="high"
                     >
                 </div>
             </div>
@@ -375,88 +406,48 @@
     </header>
 
     <!-- Technologies Section -->
-    <section id="technologies" class="py-32 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 gradient-text">
+    <section id="technologies" class="py-16 md:py-32 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Our Advanced AI Technologies
             </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-                <!-- Technology Card -->
-                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Neural Diagnostics">
-                    <i class="fas fa-brain text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-4">Neural Diagnostics</h3>
-                    <p>Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <i class="fas fa-brain text-3xl md:text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Neural Diagnostics</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
                 </div>
                 
-                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Predictive Analytics">
-                    <i class="fas fa-chart-line text-4xl text-green-600 mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-4">Predictive Analytics</h3>
-                    <p>Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <i class="fas fa-chart-line text-3xl md:text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Predictive Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
                 </div>
                 
-                <div class="bg-gray-100 dark:bg-gray-700 p-8 lg:p-10 rounded-xl advanced-shadow hover:scale-105 transition" tabindex="0" aria-label="Research Innovation">
-                    <i class="fas fa-microscope text-4xl text-purple-600 mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-4">Research Innovation</h3>
-                    <p>EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <i class="fas fa-microscope text-3xl md:text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Research Innovation</h3>
+                    <p class="text-gray-600 dark:text-gray-300">EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Research Section -->
-    <section id="research" class="py-20 bg-gray-50 dark:bg-gray-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+    <section id="research" class="py-16 md:py-32 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Research Impact Visualization
             </h2>
             
-            <div class="flex justify-center h-[400px]">
-                <canvas id="researchChart" class="w-full" aria-label="Research Impact Chart" role="img"></canvas>
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg">
+                    <div class="h-[300px] md:h-[400px]">
+                        <canvas id="researchChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
             </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    new Chart(document.getElementById('researchChart'), {
-                        type: 'line',
-                        data: {
-                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                            datasets: [{
-                                label: 'Research Impact',
-                                data: [150, 200, 180, 220, 250, 230, 280, 300, 320, 310, 340, 360],
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                fill: true,
-                                tension: 0.4,
-                                pointRadius: 5,
-                                pointHoverRadius: 7,
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    title: { display: true, text: 'Research Impact' }
-                                },
-                                x: {
-                                    title: { display: true, text: 'Months' }
-                                }
-                            },
-                            plugins: {
-                                tooltip: { mode: 'index', intersect: false },
-                                legend: { display: true, position: 'top' }
-                            },
-                            interaction: { mode: 'nearest', axis: 'x', intersect: false },
-                            animation: {
-                                duration: 2000,
-                                easing: 'easeInOutQuart'
-                            }
-                        }
-                    });
-                });
-            </script>
         </div>
     </section>
 
@@ -796,290 +787,197 @@
     </section>
 
     <!-- Team Section -->
-    <section id="team" class="py-20 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+    <section id="team" class="py-16 md:py-32 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Meet Our Team
             </h2>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Team Member -->
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow text-center" tabindex="0" aria-label="Team Member Dr. Sarah Chen">
-                    <img 
-                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2670&auto=format&fit=crop"
-                        alt="Dr. Sarah Chen, Chief Medical Officer at EyeUnit.ai, leading expert in AI ophthalmology" 
-                        class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                        loading="lazy"
-                    >
-                    <h3 class="text-2xl font-semibold">Dr. Sarah Chen</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Chief Medical Officer</p>
-                    <p class="mt-2 text-gray-700 dark:text-gray-300">Leading expert in AI-powered ophthalmology with over 15 years of clinical experience.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="team-card bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg">
+                    <div class="relative">
+                        <div class="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400"
+                                alt="Team Member"
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                            <div class="flex space-x-2">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <h3 class="text-lg md:text-xl font-bold">Dr. Sarah Chen</h3>
+                        <p class="text-blue-600 dark:text-blue-400">Chief Medical Officer</p>
+                        <p class="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-300">Leading expert in AI-powered ophthalmology</p>
+                    </div>
                 </div>
-                
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow text-center" tabindex="0" aria-label="Team Member Dr. James Wilson">
-                    <img 
-                        src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2670&auto=format&fit=crop"
-                        alt="Dr. James Wilson, Head of AI Research at EyeUnit.ai, pioneer in machine learning" 
-                        class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                        loading="lazy"
-                    >
-                    <h3 class="text-2xl font-semibold">Dr. James Wilson</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Head of AI Research</p>
-                    <p class="mt-2 text-gray-700 dark:text-gray-300">Pioneer in machine learning applications for retinal disease detection.</p>
-                </div>
-
-                <!-- Additional Team Members (Optional) -->
-                <!--
-                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg advanced-shadow text-center" tabindex="0" aria-label="Team Member">
-                    <img src="IMAGE_URL" alt="Name" class="w-32 h-32 rounded-full mx-auto mb-4">
-                    <h3 class="text-2xl font-semibold">Name</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Position</p>
-                    <p class="mt-2 text-gray-700 dark:text-gray-300">Brief description.</p>
-                </div>
-                -->
+                <!-- Repeat for other team members -->
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 bg-blue-50 dark:bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 gradient-text">
+    <section id="contact" class="py-16 md:py-32 bg-blue-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Connect with EyeUnit.ai
             </h2>
             
-            <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-xl advanced-shadow">
-                <form @submit.prevent="submitForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block mb-2 text-gray-700 dark:text-gray-300" for="name">Name</label>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg">
+                    <form @submit.prevent="submitForm" class="space-y-6" x-data="contactForm()">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
                             <input 
                                 type="text"
-                                id="name"
-                                x-model="name"
-                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                x-model="form.name"
+                                :class="{'border-red-500': errors.name}"
+                                class="form-input"
                                 placeholder="Your name"
-                                required
+                                @input="validateField('name')"
                             >
                             <p 
-                                x-show="errors.name" 
-                                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                                x-show="errors.name"
+                                x-transition
+                                class="mt-1 text-xs text-red-600"
                                 x-text="errors.name"
                             ></p>
                         </div>
-                        <div>
-                            <label class="block mb-2 text-gray-700 dark:text-gray-300" for="email">Email</label>
+                            
+                            <div class="form-group">
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                             <input 
                                 type="email"
-                                id="email"
-                                x-model="email"
-                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                x-model="form.email"
+                                :class="{'border-red-500': errors.email}"
+                                class="form-input"
                                 placeholder="your.email@example.com"
-                                required
+                                @input="validateField('email')"
                             >
                             <p 
-                                x-show="errors.email" 
-                                class="mt-1 text-sm text-red-600 dark:text-red-400"
+                                x-show="errors.email"
+                                x-transition
+                                class="mt-1 text-xs text-red-600"
                                 x-text="errors.email"
                             ></p>
                         </div>
                     </div>
-                    <div>
-                        <label class="block mb-2 text-gray-700 dark:text-gray-300" for="message">Message</label>
-                        <textarea
-                            id="message"
-                            x-model="message"
-                            rows="4"
-                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            placeholder="Your message here..."
-                            required
-                        ></textarea>
-                        <p 
-                            x-show="errors.message" 
-                            class="mt-1 text-sm text-red-600 dark:text-red-400"
-                            x-text="errors.message"
-                        ></p>
-                    </div>
-                    <button
-                        type="submit"
-                        class="w-full px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
-                        :disabled="isSubmitting"
+
+                        <div class="form-group">
+                            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                            <textarea
+                                x-model="form.message"
+                                :class="{'border-red-500': errors.message}"
+                                rows="4"
+                                class="form-textarea"
+                                placeholder="Your message here..."
+                                @input="validateField('message')"
+                            ></textarea>
+                            <p 
+                                x-show="errors.message"
+                                x-transition
+                                class="mt-1 text-xs text-red-600"
+                                x-text="errors.message"
+                            ></p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button
+                                type="submit"
+                                :disabled="isSubmitting || Object.keys(errors).length > 0"
+                                class="responsive-button bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span x-show="!isSubmitting">Send Message</span>
+                                <span x-show="isSubmitting" class="flex items-center justify-center">
+                                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Sending...
+                                </span>
+                            </button>
+                            
+                            <a 
+                                href="https://api.whatsapp.com/send?phone=34679794037"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="responsive-button bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center justify-center gap-2"
+                            >
+                                <i class="fab fa-whatsapp"></i>
+                                <span class="text-sm md:text-base">WhatsApp</span>
+                            </a>
+                        </div>
+                    </form>
+
+                    <div 
+                        x-show="successMessage"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform translate-y-2"
+                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                        class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg text-sm"
                     >
-                        <span x-show="!isSubmitting">Send Message</span>
-                        <span x-show="isSubmitting" class="flex items-center justify-center">
-                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Sending...
-                        </span>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Alpine.js Form Handling -->
-        <script>
-            function formHandler() {
-                return {
-                    darkMode: localStorage.getItem('darkMode') === 'true',
-                    mobileMenu: false,
-                    scrollProgress: 0,
-                    name: '',
-                    email: '',
-                    message: '',
-                    isSubmitting: false,
-                    errors: {},
-                    
-                    validateForm() {
-                        this.errors = {};
-                        
-                        if (!this.name.trim()) {
-                            this.errors.name = 'Name is required';
-                        }
-                        
-                        if (!this.email.trim()) {
-                            this.errors.email = 'Email is required';
-                        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
-                            this.errors.email = 'Please enter a valid email';
-                        }
-                        
-                        if (!this.message.trim()) {
-                            this.errors.message = 'Message is required';
-                        }
-                        
-                        return Object.keys(this.errors).length === 0;
-                    },
-                    
-                    async submitForm() {
-                        if (!this.validateForm()) return;
-                        
-                        this.isSubmitting = true;
-                        try {
-                            const subject = encodeURIComponent('Contact Form');
-                            const body = encodeURIComponent(
-                                `Name: ${this.name}\nEmail: ${this.email}\n\nMessage:\n${this.message}`
-                            );
-                            window.location.href = `mailto:hello@eyeunit.ai?subject=${subject}&body=${body}`;
-                            this.resetForm();
-                        } finally {
-                            this.isSubmitting = false;
-                        }
-                    },
-                    
-                    resetForm() {
-                        this.name = '';
-                        this.email = '';
-                        this.message = '';
-                        this.errors = {};
-                    },
-                    toggleDarkMode() {
-                        this.darkMode = !this.darkMode;
-                        localStorage.setItem('darkMode', this.darkMode);
-                        document.documentElement.classList.toggle('dark', this.darkMode);
-                    },
-                    init() {
-                        this.darkMode = localStorage.getItem('darkMode') === 'true';
-                        document.documentElement.classList.toggle('dark', this.darkMode);
-                        
-                        window.addEventListener('scroll', () => {
-                            this.scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-                        }, { passive: true });
-                    },
-                    toggleMobileMenu() {
-                        this.mobileMenu = !this.mobileMenu;
-                        document.body.style.overflow = this.mobileMenu ? 'hidden' : '';
-                    },
-                    handleExplore() {
-                        const techSection = document.querySelector('#technologies');
-                        if (techSection) {
-                            techSection.scrollIntoView({ behavior: 'smooth' });
-                            this.mobileMenu = false;
-                        }
-                    },
-                    handleResearch() {
-                        const researchSection = document.querySelector('#research');
-                        if (researchSection) {
-                            researchSection.scrollIntoView({ behavior: 'smooth' });
-                            this.mobileMenu = false;
-                        }
-                    },
-                    handleTestimonial(direction) {
-                        const totalTestimonials = 3;
-                        if (direction === 'next') {
-                            this.currentTestimonial = (this.currentTestimonial + 1) % totalTestimonials;
-                        } else {
-                            this.currentTestimonial = (this.currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-                        }
-                    }
-                }
-            }
-        </script>
-    </section>
-
-    <!-- Newsletter Subscription Section -->
-    <section id="newsletter" class="py-20 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
-                Subscribe to Our Newsletter
-            </h2>
-            
-            <div class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-700 p-8 rounded-lg advanced-shadow">
-                <form @submit.prevent="subscribe">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <input 
-                            type="email" 
-                            class="newsletter-input mb-4 md:mb-0 md:mr-4" 
-                            placeholder="Enter your email" 
-                            required
-                            x-model="subscribeEmail"
-                        >
-                        <button 
-                            type="submit" 
-                            class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition relative disabled:opacity-50 disabled:cursor-not-allowed"
-                            :disabled="isSubscribing || !subscribeEmail"
-                        >
-                            <span x-show="!isSubscribing">Subscribe</span>
-                            <span x-show="isSubscribing" class="flex items-center justify-center">
-                                <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                Processing...
-                            </span>
-                        </button>
+                        <p class="text-center" x-text="successMessage"></p>
                     </div>
-                </form>
-                <!-- Subscription Success Message -->
-                <div x-show="newsletterSuccess" class="mt-4 text-green-600" role="alert">
-                    Thank you for subscribing to our newsletter!
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Alpine.js Subscription Handling -->
-        <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('formHandler', () => ({
-                    darkMode: localStorage.getItem('darkMode') === 'true',
-                    init() {
-                        // Initialize dark mode from localStorage
-                        if (this.darkMode) {
-                            document.documentElement.classList.add('dark');
-                        }
-                        
-                        // Watch for dark mode changes
-                        this.$watch('darkMode', value => {
-                            localStorage.setItem('darkMode', value);
-                            document.documentElement.classList.toggle('dark', value);
-                        });
-                    },
-                    toggleDarkMode() {
-                        this.darkMode = !this.darkMode;
-                    }
-                }));
-            });
-        </script>
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 gradient-text">
+                Subscribe to Our Newsletter
+            </h2>
+            
+            <div class="max-w-xl mx-auto">
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg">
+                    <form @submit.prevent="subscribe" class="space-y-4">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input 
+                                type="email" 
+                                class="flex-1 px-4 py-2 text-sm md:text-base rounded-lg border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200" 
+                                placeholder="Enter your email"
+                                x-model="subscribeEmail"
+                            >
+                            <button 
+                                type="submit"
+                                :disabled="isSubscribing || !subscribeEmail"
+                                class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            >
+                                <span x-show="!isSubscribing">Subscribe</span>
+                                <span x-show="isSubscribing" class="flex items-center">
+                                    <svg class="animate-spin h-4 w-4 mr-2" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div 
+                        x-show="newsletterSuccess" 
+                        x-transition
+                        class="mt-4 text-sm text-green-600 text-center"
+                    >
+                        Thank you for subscribing to our newsletter!
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -1133,27 +1031,62 @@
         });
 
         // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        // Close mobile menu if open
+                        const mobileMenu = document.querySelector('[x-data]').__x.$data.mobileMenu;
+                        if (mobileMenu && window.innerWidth < 768) {
+                            document.querySelector('[x-data]').__x.$data.mobileMenu = false;
+                        }
+                    }
+                });
             });
-        });
 
-        // Add to anchor click handlers
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    this.mobileMenu = false;
-                }
-            });
-        });
+            // Initialize Chart
+            const ctx = document.getElementById('researchChart')?.getContext('2d');
+            if (ctx) {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+                gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
 
-        window.addEventListener('resize', () => {
-            const chart = Chart.getChart('researchChart');
-            if (chart) {
-                chart.resize();
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1'],
+                        datasets: [{
+                            label: 'AI Model Accuracy',
+                            data: [85, 88, 92, 94, 96],
+                            borderColor: '#3B82F6',
+                            backgroundColor: gradient,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#3B82F6'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { font: { size: 14 } }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -1276,6 +1209,130 @@
             }
             return localStorage.getItem('darkMode') === 'true';
         }
+    </script>
+
+    <!-- Fix Alpine.js data and functionality -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('mainApp', () => ({
+                darkMode: localStorage.getItem('darkMode') === 'true',
+                mobileMenu: false,
+                scrollProgress: 0,
+                imageLoaded: false,
+                currentTestimonial: 0,
+                testimonials: [
+                    {
+                        name: 'Dr. Robert Ferdinand',
+                        role: 'Ophthalmologist',
+                        quote: 'EyeUnit.ai\'s diagnostic platform has transformed our approach to eye health.'
+                    },
+                    {
+                        name: 'Dr. Sarah Chen',
+                        role: 'Research Director',
+                        quote: 'The AI capabilities have significantly improved our diagnostic accuracy.'
+                    }
+                ],
+
+                init() {
+                    this.checkDarkMode();
+                    this.initScrollListener();
+                    this.initResizeListener();
+                },
+
+                checkDarkMode() {
+                    if (this.darkMode) {
+                        document.documentElement.classList.add('dark');
+                    }
+                    this.$watch('darkMode', value => {
+                        document.documentElement.classList.toggle('dark', value);
+                        localStorage.setItem('darkMode', value);
+                    });
+                },
+
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                },
+
+                initScrollListener() {
+                    window.addEventListener('scroll', () => {
+                        this.scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    }, { passive: true });
+                },
+
+                initResizeListener() {
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth >= 768) {
+                            this.mobileMenu = false;
+                        }
+                    });
+                },
+
+                handleTestimonial(direction) {
+                    if (direction === 'next') {
+                        this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length;
+                    } else {
+                        this.currentTestimonial = (this.currentTestimonial - 1 + this.testimonials.length) % this.testimonials.length;
+                    }
+                }
+            }));
+
+            Alpine.data('contactForm', () => ({
+                form: {
+                    name: '',
+                    email: '',
+                    message: ''
+                },
+                errors: {},
+                isSubmitting: false,
+                successMessage: '',
+                
+                validateField(field) {
+                    delete this.errors[field];
+                    
+                    const value = this.form[field]?.trim();
+                    if (!value) {
+                        this.errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+                        return;
+                    }
+                    
+                    if (field === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        this.errors.email = 'Please enter a valid email address';
+                    }
+                },
+                
+                async submitForm() {
+                    this.isSubmitting = true;
+                    this.errors = {};
+                    
+                    try {
+                        ['name', 'email', 'message'].forEach(field => this.validateField(field));
+                        
+                        if (Object.keys(this.errors).length > 0) {
+                            return;
+                        }
+                        
+                        const mailtoLink = `mailto:hello@eyeunit.ai?subject=${encodeURIComponent('Contact Form Submission')}&body=${encodeURIComponent(
+                            `Name: ${this.form.name}\nEmail: ${this.form.email}\n\nMessage:\n${this.form.message}`
+                        )}`;
+                        
+                        window.location.href = mailtoLink;
+                        this.successMessage = 'Thank you for your message! We will get back to you soon.';
+                        this.resetForm();
+                    } finally {
+                        this.isSubmitting = false;
+                    }
+                },
+                
+                resetForm() {
+                    this.form = {
+                        name: '',
+                        email: '',
+                        message: ''
+                    };
+                    this.errors = {};
+                }
+            }));
+        });
     </script>
 </body>
 </html>
