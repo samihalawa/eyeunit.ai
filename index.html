@@ -381,74 +381,101 @@
         <!-- Mobile Menu -->
         <div 
             x-show="mobileMenu"
-            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 transform -translate-y-4"
             x-transition:enter-end="opacity-100 transform translate-y-0"
-            class="md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4"
+            class="fixed inset-0 z-50 bg-white dark:bg-gray-800 lg:hidden"
         >
-            <div class="container mx-auto py-4 px-4 space-y-4">
-                <a href="#home" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
-                <a href="#technologies" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Technologies</a>
-                <a href="#research" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Research</a>
-                <a href="#solutions" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Solutions</a>
-                <a href="#contact" @click="mobileMenu = false" class="block py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+            <div class="container mx-auto py-6 px-4">
+                <div class="flex justify-end mb-8">
+                    <button 
+                        @click="mobileMenu = false"
+                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="#home" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                    <a href="#technologies" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Technologies</a>
+                    <a href="#research" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Research</a>
+                    <a href="#solutions" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Solutions</a>
+                    <a href="#contact" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+                </nav>
             </div>
         </div>
     </nav>
     <!-- Hero Section -->
     <header class="min-h-screen pt-20 flex items-center hero-gradient">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <div class="hero-content py-16 md:py-24">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
-                    Revolutionizing <span class="gradient-text">Ophthalmology</span><br>with AI
-                </h1>
-                <p class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300">
-                    EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <button class="responsive-button bg-blue-600 text-white rounded-full hover:bg-blue-700">
-                        Explore Technologies
-                    </button>
-                    <button class="responsive-button border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
-                        View Research
-                    </button>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="hero-content grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                        Revolutionizing <span class="gradient-text">Ophthalmology</span><br>with AI
+                    </h1>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <button class="responsive-button bg-blue-600 text-white rounded-full hover:bg-blue-700">
+                            Explore Technologies
+                        </button>
+                        <button class="responsive-button border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
+                            View Research
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="hidden md:block">
-                <img 
-                    src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
-                    alt="AI Vision Technology"
-                    class="responsive-image rounded-2xl shadow-2xl"
-                    loading="lazy"
-                >
+                <div class="hidden md:block">
+                    <img 
+                        src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
+                        alt="AI Vision Technology"
+                        class="w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                        loading="lazy"
+                    >
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Technologies Section -->
     <section id="technologies" class="py-16 md:py-32 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Our Advanced AI Technologies
             </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <i class="fas fa-brain text-3xl md:text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Neural Diagnostics</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-brain text-3xl md:text-4xl text-blue-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Neural Diagnostics</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <i class="fas fa-chart-line text-3xl md:text-4xl text-green-600 mb-4"></i>
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Predictive Analytics</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-chart-line text-3xl md:text-4xl text-green-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Predictive Analytics</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <i class="fas fa-microscope text-3xl md:text-4xl text-purple-600 mb-4"></i>
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Research Innovation</h3>
-                    <p class="text-gray-600 dark:text-gray-300">EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-microscope text-3xl md:text-4xl text-purple-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Research Innovation</h3>
+                            <p class="text-gray-600 dark:text-gray-300">EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -456,15 +483,35 @@
 
     <!-- Research Section -->
     <section id="research" class="py-16 md:py-32 bg-gray-50 dark:bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Research Impact Visualization
             </h2>
             
             <div class="max-w-5xl mx-auto">
-                <div class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg">
-                    <div class="h-[300px] md:h-[400px]">
+                <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
+                    <div class="h-[300px] md:h-[400px] lg:h-[500px]">
                         <canvas id="researchChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Research Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="text-2xl md:text-3xl font-bold text-blue-600 mb-2">95%</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Diagnostic Accuracy</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="text-2xl md:text-3xl font-bold text-green-600 mb-2">50+</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Research Papers</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="text-2xl md:text-3xl font-bold text-purple-600 mb-2">10K+</h4>
+                        <p class="text-gray-600 dark:text-gray-300">Cases Analyzed</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="text-2xl md:text-3xl font-bold text-indigo-600 mb-2">24/7</h4>
+                        <p class="text-gray-600 dark:text-gray-300">AI Monitoring</p>
                     </div>
                 </div>
             </div>
@@ -850,7 +897,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-16 md:py-32 bg-blue-50 dark:bg-gray-900">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Connect with EyeUnit.ai
             </h2>
@@ -858,43 +905,43 @@
             <div class="max-w-3xl mx-auto">
                 <div class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg">
                     <form @submit.prevent="submitForm" class="space-y-6" x-data="contactForm()">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="form-group">
                                 <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
-                            <input 
-                                type="text"
-                                x-model="form.name"
-                                :class="{'border-red-500': errors.name}"
-                                class="form-input"
-                                placeholder="Your name"
-                                @input="validateField('name')"
-                            >
-                            <p 
-                                x-show="errors.name"
-                                x-transition
-                                class="mt-1 text-xs text-red-600"
-                                x-text="errors.name"
-                            ></p>
-                        </div>
+                                <input 
+                                    type="text"
+                                    x-model="form.name"
+                                    :class="{'border-red-500': errors.name}"
+                                    class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    placeholder="Your name"
+                                    @input="validateField('name')"
+                                >
+                                <p 
+                                    x-show="errors.name"
+                                    x-transition
+                                    class="mt-1 text-xs text-red-600"
+                                    x-text="errors.name"
+                                ></p>
+                            </div>
                             
                             <div class="form-group">
                                 <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                            <input 
-                                type="email"
-                                x-model="form.email"
-                                :class="{'border-red-500': errors.email}"
-                                class="form-input"
-                                placeholder="your.email@example.com"
-                                @input="validateField('email')"
-                            >
-                            <p 
-                                x-show="errors.email"
-                                x-transition
-                                class="mt-1 text-xs text-red-600"
-                                x-text="errors.email"
-                            ></p>
+                                <input 
+                                    type="email"
+                                    x-model="form.email"
+                                    :class="{'border-red-500': errors.email}"
+                                    class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    placeholder="your.email@example.com"
+                                    @input="validateField('email')"
+                                >
+                                <p 
+                                    x-show="errors.email"
+                                    x-transition
+                                    class="mt-1 text-xs text-red-600"
+                                    x-text="errors.email"
+                                ></p>
+                            </div>
                         </div>
-                    </div>
 
                         <div class="form-group">
                             <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
@@ -902,7 +949,7 @@
                                 x-model="form.message"
                                 :class="{'border-red-500': errors.message}"
                                 rows="4"
-                                class="form-textarea"
+                                class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
                                 placeholder="Your message here..."
                                 @input="validateField('message')"
                             ></textarea>
@@ -918,7 +965,7 @@
                             <button
                                 type="submit"
                                 :disabled="isSubmitting || Object.keys(errors).length > 0"
-                                class="responsive-button bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <span x-show="!isSubmitting">Send Message</span>
                                 <span x-show="isSubmitting" class="flex items-center justify-center">
@@ -931,13 +978,13 @@
                             </button>
                             
                             <a 
-                                href="https://api.whatsapp.com/send?phone=34679794037"
+                                href="https://api.whatsapp.com/send?phone=447591914775"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="responsive-button bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center justify-center gap-2"
+                                class="flex-1 sm:flex-initial px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center justify-center gap-2"
                             >
-                                <i class="fab fa-whatsapp"></i>
-                                <span class="text-sm md:text-base">WhatsApp</span>
+                                <i class="fab fa-whatsapp text-lg"></i>
+                                <span class="text-sm md:text-base">WhatsApp Us</span>
                             </a>
                         </div>
                     </form>
@@ -958,7 +1005,7 @@
 
     <!-- Newsletter Section -->
     <section id="newsletter" class="py-16 md:py-24 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 gradient-text">
                 Subscribe to Our Newsletter
             </h2>
@@ -969,16 +1016,16 @@
                         <div class="flex flex-col md:flex-row gap-4">
                             <input 
                                 type="email" 
-                                class="flex-1 px-4 py-2 text-sm md:text-base rounded-lg border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200" 
+                                class="flex-1 px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" 
                                 placeholder="Enter your email"
                                 x-model="subscribeEmail"
                             >
                             <button 
                                 type="submit"
                                 :disabled="isSubscribing || !subscribeEmail"
-                                class="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                class="w-full md:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
                             >
-                                <span x-show="!isSubscribing">Subscribe</span>
+                                <span x-show="!isSubscribing">Subscribe Now</span>
                                 <span x-show="isSubscribing" class="flex items-center">
                                     <svg class="animate-spin h-4 w-4 mr-2" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -993,10 +1040,14 @@
                     <div 
                         x-show="newsletterSuccess" 
                         x-transition
-                        class="mt-4 text-sm text-green-600 text-center"
+                        class="mt-4 text-sm text-green-600 dark:text-green-400 text-center"
                     >
                         Thank you for subscribing to our newsletter!
                     </div>
+
+                    <p class="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
+                        Join our community to receive the latest updates on AI in ophthalmology
+                    </p>
                 </div>
             </div>
         </div>
