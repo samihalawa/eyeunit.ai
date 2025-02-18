@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EyeUnit.ai - Unlocking Vision with AI Innovation</title>
 
-    <!-- Performance-Optimized CDNs -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
-    <!-- Tailwind CSS and Other Styles -->
+    <!-- Bundle CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Interactive Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.5.0/parallax.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <!-- SEO Metadata -->
@@ -243,7 +241,11 @@
             }
 
             .contact-form {
-                @apply p-4;
+                @apply w-full max-w-md mx-auto;
+            }
+
+            .footer-links {
+                @apply grid-cols-2 gap-4;
             }
         }
         
@@ -298,24 +300,42 @@
 
     <!-- Add dark mode preference script -->
     <script>
-        // Check for dark mode preference
-        if (localStorage.getItem('darkMode') === 'true' || 
-            (!('darkMode' in localStorage) && 
-             window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        function initDarkMode() {
+            // Check system preference first
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedPreference = localStorage.getItem('darkMode');
+            
+            // Set initial state
+            const shouldBeDark = storedPreference !== null ? storedPreference === 'true' : systemPrefersDark;
+            document.documentElement.classList.toggle('dark', shouldBeDark);
+            
+            // Listen for system changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (localStorage.getItem('darkMode') === null) {
+                    document.documentElement.classList.toggle('dark', e.matches);
+                }
+            });
         }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initDarkMode);
     </script>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 </head>
 
 <body 
     x-data="formHandler()" 
     :class="{ 'dark': darkMode }"
     @scroll.window="scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100"
-    class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white relative"
+    class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white relative"
 >
     <!-- Progress Bar -->
     <div 
-        class="fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50" 
+        class="progress-bar fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50" 
         :style="`width: ${scrollProgress}%`"
     ></div>
 
@@ -350,6 +370,8 @@
                 <button 
                     @click="mobileMenu = !mobileMenu"
                     class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    aria-label="Toggle mobile menu"
+                    :aria-expanded="mobileMenu.toString()"
                 >
                     <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
                 </button>
@@ -375,32 +397,30 @@
     </nav>
     <!-- Hero Section -->
     <header class="min-h-screen pt-20 flex items-center hero-gradient">
-        <div class="container mx-auto px-4 py-12 md:py-20">
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div class="text-center md:text-left space-y-6">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text leading-tight animate__animated animate__fadeIn">
-                        Unlocking Vision with AI Innovation
-                    </h1>
-                    <p class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300">
-                        EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <button class="responsive-button bg-blue-600 text-white rounded-full hover:bg-blue-700">
-                            Explore Technologies
-                        </button>
-                        <button class="responsive-button border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
-                            View Research
-                        </button>
-                    </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div class="hero-content py-16 md:py-24">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
+                    Revolutionizing <span class="gradient-text">Ophthalmology</span><br>with AI
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300">
+                    EyeUnit.ai is revolutionizing ophthalmology with cutting-edge AI technologies, offering precision diagnostics, advanced research, and innovative solutions for eye care.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <button class="responsive-button bg-blue-600 text-white rounded-full hover:bg-blue-700">
+                        Explore Technologies
+                    </button>
+                    <button class="responsive-button border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
+                        View Research
+                    </button>
                 </div>
-                <div class="hidden md:block">
-                    <img 
-                        src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
-                        alt="AI Vision Technology"
-                        class="responsive-image rounded-2xl shadow-2xl"
-                        loading="lazy"
-                    >
-                </div>
+            </div>
+            <div class="hidden md:block">
+                <img 
+                    src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&w=800"
+                    alt="AI Vision Technology"
+                    class="responsive-image rounded-2xl shadow-2xl"
+                    loading="lazy"
+                >
             </div>
         </div>
     </header>
@@ -436,7 +456,7 @@
 
     <!-- Research Section -->
     <section id="research" class="py-16 md:py-32 bg-gray-50 dark:bg-gray-900">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
                 Research Impact Visualization
             </h2>
@@ -794,14 +814,16 @@
             </h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                <div class="team-card bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg">
+                <div class="team-card bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-lg" role="article" aria-labelledby="team-member-name">
                     <div class="relative">
                         <div class="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4">
                             <img 
-                                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400"
+                                src="team-member.jpg" 
                                 alt="Team Member"
-                                class="w-full h-full object-cover"
                                 loading="lazy"
+                                decoding="async"
+                                class="w-full h-full object-cover"
+                                onerror="this.src='fallback-image.jpg'"
                             >
                         </div>
                         <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
@@ -816,7 +838,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-6">
-                        <h3 class="text-lg md:text-xl font-bold">Dr. Sarah Chen</h3>
+                        <h3 class="text-lg md:text-xl font-bold" id="team-member-name">Dr. Sarah Chen</h3>
                         <p class="text-blue-600 dark:text-blue-400">Chief Medical Officer</p>
                         <p class="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-300">Leading expert in AI-powered ophthalmology</p>
                     </div>
@@ -1048,55 +1070,56 @@
                 });
             });
 
-            // Initialize Chart
-            const ctx = document.getElementById('researchChart')?.getContext('2d');
-            if (ctx) {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
-                gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+        // Initialize Chart
+        const ctx = document.getElementById('researchChart')?.getContext('2d');
+        if (ctx) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
 
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1'],
-                        datasets: [{
-                            label: 'AI Model Accuracy',
-                            data: [85, 88, 92, 94, 96],
-                            borderColor: '#3B82F6',
-                            backgroundColor: gradient,
-                            fill: true,
-                            tension: 0.4,
-                            pointRadius: 6,
-                            pointBackgroundColor: '#3B82F6'
-                        }]
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1'],
+                    datasets: [{
+                        label: 'AI Model Accuracy',
+                        data: [85, 88, 92, 94, 96],
+                        borderColor: '#3B82F6',
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#3B82F6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { font: { size: 14 } }
+                        }
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: { font: { size: 14 } }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: 'rgba(0, 0, 0, 0.1)' }
-                            }
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' }
                         }
                     }
-                });
-            }
-        });
-
-        // Optimize animations with requestAnimationFrame
-        function animateScroll() {
-            requestAnimationFrame(() => {
-                scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                }
             });
         }
-        window.addEventListener('scroll', animateScroll, { passive: true });
+    });
+
+    // Optimize animations with requestAnimationFrame
+    function animateScroll() {
+        requestAnimationFrame(() => {
+            const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = `${scrollProgress}%`;
+        });
+    }
+    window.addEventListener('scroll', animateScroll, { passive: true });
     </script>
 
     <!-- Live Chat Integration (Optional) -->
@@ -1214,69 +1237,7 @@
     <!-- Fix Alpine.js data and functionality -->
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('mainApp', () => ({
-                darkMode: localStorage.getItem('darkMode') === 'true',
-                mobileMenu: false,
-                scrollProgress: 0,
-                imageLoaded: false,
-                currentTestimonial: 0,
-                testimonials: [
-                    {
-                        name: 'Dr. Robert Ferdinand',
-                        role: 'Ophthalmologist',
-                        quote: 'EyeUnit.ai\'s diagnostic platform has transformed our approach to eye health.'
-                    },
-                    {
-                        name: 'Dr. Sarah Chen',
-                        role: 'Research Director',
-                        quote: 'The AI capabilities have significantly improved our diagnostic accuracy.'
-                    }
-                ],
-
-                init() {
-                    this.checkDarkMode();
-                    this.initScrollListener();
-                    this.initResizeListener();
-                },
-
-                checkDarkMode() {
-                    if (this.darkMode) {
-                        document.documentElement.classList.add('dark');
-                    }
-                    this.$watch('darkMode', value => {
-                        document.documentElement.classList.toggle('dark', value);
-                        localStorage.setItem('darkMode', value);
-                    });
-                },
-
-                toggleDarkMode() {
-                    this.darkMode = !this.darkMode;
-                },
-
-                initScrollListener() {
-                    window.addEventListener('scroll', () => {
-                        this.scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                    }, { passive: true });
-                },
-
-                initResizeListener() {
-                    window.addEventListener('resize', () => {
-                        if (window.innerWidth >= 768) {
-                            this.mobileMenu = false;
-                        }
-                    });
-                },
-
-                handleTestimonial(direction) {
-                    if (direction === 'next') {
-                        this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length;
-                    } else {
-                        this.currentTestimonial = (this.currentTestimonial - 1 + this.testimonials.length) % this.testimonials.length;
-                    }
-                }
-            }));
-
-            Alpine.data('contactForm', () => ({
+            Alpine.data('formHandler', () => ({
                 form: {
                     name: '',
                     email: '',
@@ -1285,18 +1246,77 @@
                 errors: {},
                 isSubmitting: false,
                 successMessage: '',
+                darkMode: localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+                mobileMenu: false,
+                scrollProgress: 0,
+                testimonialIndex: 0,
+                
+                init() {
+                    this.checkDarkMode();
+                    this.initScrollListener();
+                    this.initResizeListener();
+                },
+                
+                checkDarkMode() {
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                    this.$watch('darkMode', value => {
+                        document.documentElement.classList.toggle('dark', value);
+                        localStorage.setItem('darkMode', value);
+                    });
+                },
+                
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                },
+                
+                initScrollListener() {
+                    window.addEventListener('scroll', () => {
+                        this.scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    }, { passive: true });
+                },
+                
+                initResizeListener() {
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth >= 768) {
+                            this.mobileMenu = false;
+                        }
+                    });
+                },
+                
+                handleTestimonial(direction) {
+                    const testimonials = document.querySelectorAll('.testimonial');
+                    if (direction === 'next') {
+                        this.testimonialIndex = (this.testimonialIndex + 1) % testimonials.length;
+                    } else {
+                        this.testimonialIndex = (this.testimonialIndex - 1 + testimonials.length) % testimonials.length;
+                    }
+                },
                 
                 validateField(field) {
+                    const value = this.form[field]?.trim();
                     delete this.errors[field];
                     
-                    const value = this.form[field]?.trim();
                     if (!value) {
                         this.errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
                         return;
                     }
                     
-                    if (field === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                        this.errors.email = 'Please enter a valid email address';
+                    switch(field) {
+                        case 'email':
+                            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                                this.errors.email = 'Please enter a valid email address';
+                            }
+                            break;
+                        case 'name':
+                            if (value.length < 2) {
+                                this.errors.name = 'Name must be at least 2 characters';
+                            }
+                            break;
+                        case 'message':
+                            if (value.length < 10) {
+                                this.errors.message = 'Message must be at least 10 characters';
+                            }
+                            break;
                     }
                 },
                 
