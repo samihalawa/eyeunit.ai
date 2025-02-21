@@ -1,4 +1,0 @@
-baseurl: ""
-url: "https://eyeunit.ai"
-include: ["_*"]
-exclude: ["node_modules", "*.json", "*.js", "*.ts", "*.sh", "*.md", "dist", "test"] 
