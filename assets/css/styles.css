@@ -1,0 +1,59 @@
+:root {
+    --color-primary: #3B82F6;
+    --color-secondary: #10B981;
+    --color-background: #F9FAFB;
+    --color-text: #1F2937;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.blog-card {
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.prose {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prose img {
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+}
+
+.prose h2 {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.tag-filter {
+    transition: all 0.3s ease;
+}
+
+.tag-filter.active {
+    background-color: var(--color-primary);
+    color: white;
+} 

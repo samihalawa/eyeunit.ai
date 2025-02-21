@@ -5,14 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solutions - EyeUnit.ai</title>
 
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
     <!-- Bundle CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Interactive Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.5.0/parallax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <!-- SEO Metadata -->
     <meta name="description" content="Explore EyeUnit.ai's comprehensive AI-powered solutions for ophthalmology">
     <meta name="robots" content="index,follow">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="font" crossorigin>
+    
+    <!-- Add resource hints -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://api.eyeunit.ai">
+
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     
     <style>
         :root {
@@ -29,7 +56,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            background: linear-gradient(135deg, #3B82F6, #10B981);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -62,14 +89,14 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-12">
-        <h1 class="text-4xl font-bold mb-8 gradient-text text-center">Our Solutions</h1>
+        <h1 class="text-4xl font-bold mb-8 gradient-text text-center">AI-Powered Eye Care Solutions</h1>
         
         <div class="max-w-6xl mx-auto">
             <!-- Hero Section -->
             <section class="mb-16">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <h2 class="text-3xl font-bold mb-4">AI-Powered Eye Care Solutions</h2>
+                        <h2 class="text-3xl font-bold mb-4">Transform Your Practice</h2>
                         <p class="text-gray-600 mb-6">
                             Transform your practice with our comprehensive suite of AI-powered solutions
                             designed specifically for ophthalmology professionals.
@@ -107,7 +134,8 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Diagnostic Platform</h3>
                             <p class="text-gray-600 mb-4">
-                                Advanced AI-powered diagnostic tools for accurate and rapid eye condition detection.
+                                Advanced AI-powered platform for accurate and efficient diagnosis of eye conditions,
+                                featuring real-time analysis and detailed reporting.
                             </p>
                             <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
                         </div>
@@ -123,7 +151,8 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Clinical Integration</h3>
                             <p class="text-gray-600 mb-4">
-                                Seamless integration with your existing clinical workflows and systems.
+                                Seamless integration with existing healthcare systems, ensuring smooth workflow
+                                and efficient patient care management.
                             </p>
                             <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
                         </div>
@@ -139,7 +168,8 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Research Analytics</h3>
                             <p class="text-gray-600 mb-4">
-                                Powerful analytics tools for research and clinical trials in ophthalmology.
+                                Comprehensive analytics platform for research institutions, providing powerful
+                                tools for data analysis and insights generation.
                             </p>
                             <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
                         </div>
@@ -164,8 +194,8 @@
                             <div>
                                 <h3 class="text-xl font-semibold mb-2">Real-time Analytics</h3>
                                 <p class="text-gray-600">
-                                    Get instant insights and analysis of patient data with our advanced
-                                    analytics dashboard.
+                                    Get instant insights with our real-time analytics dashboard, monitoring
+                                    key metrics and performance indicators.
                                 </p>
                             </div>
                         </div>
@@ -178,8 +208,8 @@
                             <div>
                                 <h3 class="text-xl font-semibold mb-2">HIPAA Compliant</h3>
                                 <p class="text-gray-600">
-                                    Secure, encrypted, and compliant with all healthcare data protection
-                                    regulations.
+                                    Our solutions adhere to the highest security standards, ensuring
+                                    complete protection of patient data.
                                 </p>
                             </div>
                         </div>
@@ -187,13 +217,13 @@
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <div class="flex items-start mb-4">
                             <div class="text-blue-500 mr-4">
-                                <i class="fas fa-sync text-2xl"></i>
+                                <i class="fas fa-cogs text-2xl"></i>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold mb-2">Automated Workflow</h3>
                                 <p class="text-gray-600">
-                                    Streamline your clinical workflow with automated diagnosis and
-                                    reporting tools.
+                                    Streamline your operations with automated workflows, reducing manual
+                                    tasks and improving efficiency.
                                 </p>
                             </div>
                         </div>
@@ -206,8 +236,8 @@
                             <div>
                                 <h3 class="text-xl font-semibold mb-2">Team Collaboration</h3>
                                 <p class="text-gray-600">
-                                    Enable seamless collaboration between healthcare providers and
-                                    specialists.
+                                    Enable seamless collaboration between team members with integrated
+                                    communication and sharing tools.
                                 </p>
                             </div>
                         </div>
@@ -219,10 +249,11 @@
             <section id="demo" class="bg-blue-600 text-white rounded-xl p-12 text-center">
                 <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Practice?</h2>
                 <p class="mb-8 text-lg">
-                    Schedule a demo to see how our AI solutions can enhance your eye care services.
+                    Join leading healthcare providers who trust EyeUnit.ai to deliver cutting-edge
+                    AI solutions for better patient care.
                 </p>
                 <a href="/pages/contact.html" class="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors">
-                    Schedule Demo
+                    Schedule a Demo
                 </a>
             </section>
         </div>
