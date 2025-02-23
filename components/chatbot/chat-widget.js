@@ -1,7 +1,8 @@
 export class ChatWidget {
     constructor() {
-        this.apiKey = process.env.HUGGING_FACE_API_KEY;
+        this.apiKey = null;
         this.apiBase = 'https://api-inference.huggingface.co/models';
+        this.initializeApiKey();
         this.model = 'Qwen/Qwen2.5-Coder-32B-Instruct';
         this.isOpen = false;
         this.isTyping = false;
@@ -28,6 +29,19 @@ export class ChatWidget {
         
         this.createWidget();
         this.attachEventListeners();
+    }
+
+    async initializeApiKey() {
+        try {
+            const response = await fetch('/api/config');
+            if (!response.ok) {
+                throw new Error('Failed to fetch API configuration');
+            }
+            const config = await response.json();
+            this.apiKey = config.huggingfaceApiKey;
+        } catch (error) {
+            console.error('Failed to initialize API key:', error);
+        }
     }
 
     createWidget() {
@@ -169,6 +183,9 @@ export class ChatWidget {
     }
 
     async callAPI(message) {
+        if (!this.apiKey) {
+            throw new Error('API key not initialized');
+        }
         try {
             // Create a chat-like prompt format
             const prompt = `<|im_start|>system

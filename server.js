@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
@@ -25,8 +26,8 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'eugproductions@gmail.com',
-        pass: 'rovt fswq crlv bhzk'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -35,6 +36,13 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Serve static files from root
 app.use(express.static('.'));
+
+// Endpoint to get HuggingFace API key
+app.get('/api/config', (req, res) => {
+    res.json({
+        huggingfaceApiKey: process.env.HUGGINGFACE_API_KEY
+    });
+});
 
 // Contact form endpoint with rate limiting
 app.post('/api/contact', limiter, async (req, res) => {
@@ -90,4 +98,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
     console.log('Press Ctrl+C to stop');
-}); 
+});

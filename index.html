@@ -333,7 +333,7 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 
     <!-- Add blogPosts.js -->
-    <script src="/js/blogPosts.js" defer></script>
+    <script src="/assets/js/blogPosts.js" defer></script>
 </head>
 
 <body 
@@ -759,8 +759,8 @@
                         <h3 class="text-xl font-semibold mb-2">Dr. Sarah Chen</h3>
                         <p class="text-gray-600 mb-4">Chief Medical Officer</p>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -775,8 +775,8 @@
                         <h3 class="text-xl font-semibold mb-2">Dr. James Wilson</h3>
                         <p class="text-gray-600 mb-4">Head of Research</p>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -791,8 +791,8 @@
                         <h3 class="text-xl font-semibold mb-2">Alex Thompson</h3>
                         <p class="text-gray-600 mb-4">Lead AI Engineer</p>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-700"><i class="fab fa-github"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
@@ -915,5 +915,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+
+    <!-- Initialize AI Chat Widget -->
+    <script type="module" src="/components/chatbot/init.js"></script>
 </body>
 </html>
