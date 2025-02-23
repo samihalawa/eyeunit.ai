@@ -12,8 +12,21 @@ const limiter = rateLimit({
     max: 5 // limit each IP to 5 requests per windowMs
 });
 
-// Enable CORS
-app.use(cors());
+// Enable CORS with specific origin
+const allowedOrigins = process.env.NODE_ENV === 'development' 
+    ? ['http://localhost:3000', 'https://eyeunit.ai']
+    : ['https://eyeunit.ai'];
+
+app.use(cors({
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 
 // Parse JSON bodies
 app.use(express.json());
@@ -23,6 +36,7 @@ app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
     next();
 });
 
@@ -51,17 +65,16 @@ app.use(express.static('.'));
 
 // Endpoint to get HuggingFace API key
 app.get('/api/config', (req, res) => {
-    // Check origin
-    const allowedOrigins = ['http://localhost:3000', 'https://eyeunit.ai'];
     const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
+    if (!allowedOrigins.includes(origin)) {
+        return res.status(403).json({ error: 'Origin not allowed' });
     }
+    
     if (!process.env.HUGGINGFACE_API_KEY) {
         console.error('HUGGINGFACE_API_KEY not found in environment variables');
         return res.status(500).json({ error: 'API key not configured' });
     }
-    console.log('API config endpoint accessed');
+    
     res.json({
         huggingfaceApiKey: process.env.HUGGINGFACE_API_KEY
     });
@@ -74,9 +87,9 @@ app.post('/api/contact', limiter, async (req, res) => {
         
         // Email content
         const mailOptions = {
-            from: `"${name}" <eugproductions@gmail.com>`,
+            from: process.env.EMAIL_FROM || `"${name}" <${process.env.EMAIL_USER}>`,
             replyTo: email,
-            to: 'fernandolyyang@gmail.com',
+            to: process.env.EMAIL_TO,
             subject: 'New Message From EyeUnit.ai',
             text: `
 Name: ${name}
