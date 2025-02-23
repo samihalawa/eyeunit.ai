@@ -1,9 +1,8 @@
 export class ChatWidget {
     constructor() {
         this.apiKey = null;
-        this.apiBase = 'https://api-inference.huggingface.co/models';
+        this.apiBase = 'https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-32B-Instruct';
         this.initializeApiKey();
-        this.model = 'Qwen/Qwen2.5-Coder-32B-Instruct';
         this.isOpen = false;
         this.isTyping = false;
         this.context = [
@@ -33,14 +32,24 @@ export class ChatWidget {
 
     async initializeApiKey() {
         try {
+            console.log('Fetching API configuration...');
             const response = await fetch('/api/config');
+            
             if (!response.ok) {
-                throw new Error('Failed to fetch API configuration');
+                const error = await response.json();
+                throw new Error(`Failed to fetch API configuration: ${error.error || response.statusText}`);
             }
+            
             const config = await response.json();
+            if (!config.huggingfaceApiKey) {
+                throw new Error('API key missing in server response');
+            }
+            
             this.apiKey = config.huggingfaceApiKey;
+            console.log('API key successfully initialized');
         } catch (error) {
             console.error('Failed to initialize API key:', error);
+            this.addBotMessage("I apologize, but I'm having trouble initializing. Please ensure the server is running and the API key is properly configured.");
         }
     }
 
@@ -184,8 +193,10 @@ export class ChatWidget {
 
     async callAPI(message) {
         if (!this.apiKey) {
+            console.error('API key not initialized');
             throw new Error('API key not initialized');
         }
+        console.log('Sending message to HuggingFace API...');
         try {
             // Create a chat-like prompt format
             const prompt = `<|im_start|>system
@@ -199,7 +210,7 @@ ${message}
 <|im_end|>
 <|im_start|>assistant`;
 
-            const response = await fetch(`${this.apiBase}/${this.model}`, {
+            const response = await fetch(this.apiBase, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.apiKey}`,
@@ -221,6 +232,7 @@ ${message}
                 throw new Error(`API request failed: ${response.statusText}`);
             }
 
+            console.log('Response received from API');
             const result = await response.json();
             
             // Process and clean the response

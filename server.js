@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const app = express();
 
 // Configure rate limiting
@@ -11,8 +12,19 @@ const limiter = rateLimit({
     max: 5 // limit each IP to 5 requests per windowMs
 });
 
+// Enable CORS
+app.use(cors());
+
 // Parse JSON bodies
 app.use(express.json());
+
+// Add security headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    next();
+});
 
 // Basic request logging middleware
 app.use((req, res, next) => {
@@ -39,6 +51,17 @@ app.use(express.static('.'));
 
 // Endpoint to get HuggingFace API key
 app.get('/api/config', (req, res) => {
+    // Check origin
+    const allowedOrigins = ['http://localhost:3000', 'https://eyeunit.ai'];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    if (!process.env.HUGGINGFACE_API_KEY) {
+        console.error('HUGGINGFACE_API_KEY not found in environment variables');
+        return res.status(500).json({ error: 'API key not configured' });
+    }
+    console.log('API config endpoint accessed');
     res.json({
         huggingfaceApiKey: process.env.HUGGINGFACE_API_KEY
     });
