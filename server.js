@@ -12,18 +12,44 @@ const limiter = rateLimit({
     max: 5 // limit each IP to 5 requests per windowMs
 });
 
-// Enable CORS with specific origin
+// Define allowed origins based on environment
 const allowedOrigins = process.env.NODE_ENV === 'development' 
     ? ['http://localhost:3000', 'https://eyeunit.ai']
-    : ['https://eyeunit.ai'];
+    : ['https://eyeunit.ai', /\.eyeunit\.ai$/, /\.cloudflare\.com$/];
 
+// Enable CORS with flexible configuration
 app.use(cors({
     origin: function(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
+        // Allow requests with no origin (like mobile apps, curl requests)
+        if (!origin) return callback(null, true);
+        
+        // Check if origin is explicitly allowed
+        if (typeof allowedOrigins === 'string' && origin === allowedOrigins) {
+            return callback(null, true);
         }
+        
+        // Check against array of origins
+        if (Array.isArray(allowedOrigins)) {
+            let isAllowed = false;
+            for (let allowedOrigin of allowedOrigins) {
+                // Check for exact match or regex pattern
+                if (typeof allowedOrigin === 'string' && origin === allowedOrigin) {
+                    isAllowed = true;
+                    break;
+                } else if (allowedOrigin instanceof RegExp && allowedOrigin.test(origin)) {
+                    isAllowed = true;
+                    break;
+                }
+            }
+            
+            if (isAllowed) {
+                return callback(null, true);
+            }
+        }
+        
+        // Log for debugging
+        console.log(`CORS blocked for origin: ${origin}`);
+        callback(new Error('Not allowed by CORS'));
     },
     credentials: true
 }));
@@ -66,7 +92,10 @@ app.use(express.static('.'));
 // Endpoint to get HuggingFace API key
 app.get('/api/config', (req, res) => {
     const origin = req.headers.origin;
-    if (!allowedOrigins.includes(origin)) {
+    
+    // Skip origin check in production to allow Cloudflare Workers
+    if (process.env.NODE_ENV !== 'production' && origin && !isOriginAllowed(origin, allowedOrigins)) {
+        console.log(`API config access blocked for origin: ${origin}`);
         return res.status(403).json({ error: 'Origin not allowed' });
     }
     
@@ -79,6 +108,27 @@ app.get('/api/config', (req, res) => {
         huggingfaceApiKey: process.env.HUGGINGFACE_API_KEY
     });
 });
+
+// Helper function to check if origin is allowed
+function isOriginAllowed(origin, allowedOrigins) {
+    if (!origin || !allowedOrigins) return false;
+    
+    if (typeof allowedOrigins === 'string') {
+        return origin === allowedOrigins;
+    }
+    
+    if (Array.isArray(allowedOrigins)) {
+        for (let allowedOrigin of allowedOrigins) {
+            if (typeof allowedOrigin === 'string' && origin === allowedOrigin) {
+                return true;
+            } else if (allowedOrigin instanceof RegExp && allowedOrigin.test(origin)) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
 
 // Contact form endpoint with rate limiting
 app.post('/api/contact', limiter, async (req, res) => {

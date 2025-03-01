@@ -33,11 +33,19 @@ export class ChatWidget {
     async initializeApiKey() {
         try {
             console.log('Fetching API configuration...');
-            const response = await fetch('/api/config');
+            const baseUrl = window.location.origin;
+            const response = await fetch(`${baseUrl}/api/config`);
             
             if (!response.ok) {
-                const error = await response.json();
-                throw new Error(`Failed to fetch API configuration: ${error.error || response.statusText}`);
+                const error = await response.text();
+                let errorMessage;
+                try {
+                    const errorJson = JSON.parse(error);
+                    errorMessage = errorJson.error || response.statusText;
+                } catch (e) {
+                    errorMessage = error || response.statusText;
+                }
+                throw new Error(`Failed to fetch API configuration: ${errorMessage}`);
             }
             
             const config = await response.json();
@@ -54,11 +62,12 @@ export class ChatWidget {
     }
 
     createWidget() {
-        // Load CSS
-        if (!document.querySelector('link[href="/components/chatbot/chat-widget.css"]')) {
+        // Load CSS with absolute URL
+        const cssPath = `${window.location.origin}/components/chatbot/chat-widget.css`;
+        if (!document.querySelector(`link[href="${cssPath}"]`)) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = '/components/chatbot/chat-widget.css';
+            link.href = cssPath;
             document.head.appendChild(link);
         }
 
@@ -210,6 +219,7 @@ ${message}
 <|im_end|>
 <|im_start|>assistant`;
 
+            console.log('Calling HuggingFace API at:', this.apiBase);
             const response = await fetch(this.apiBase, {
                 method: 'POST',
                 headers: {
@@ -229,11 +239,18 @@ ${message}
             });
 
             if (!response.ok) {
-                throw new Error(`API request failed: ${response.statusText}`);
+                const errorText = await response.text();
+                console.error('API Error Response:', errorText);
+                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
             }
 
             console.log('Response received from API');
             const result = await response.json();
+            
+            if (!result || !Array.isArray(result) || result.length === 0) {
+                console.error('Invalid response format:', result);
+                return "I apologize, but I received an invalid response. Please try again or contact support.";
+            }
             
             // Process and clean the response
             let answer = result[0].generated_text || '';
@@ -248,18 +265,11 @@ ${message}
             if (!answer) {
                 return "I apologize, but I'm having trouble generating a response. Please try rephrasing your question or contact our support team for assistance.";
             }
-
-            // Add contact form reference if appropriate
-            if (answer.toLowerCase().includes('contact') || 
-                answer.toLowerCase().includes('support') || 
-                answer.toLowerCase().includes('team')) {
-                answer += "\n\nYou can reach our team through our contact form at /contact.html";
-            }
-
+            
             return answer;
         } catch (error) {
-            console.error('API call failed:', error);
-            throw error;
+            console.error('Error in API call:', error);
+            return `I apologize, but I encountered an error processing your request: ${error.message}. Please try again later or contact support.`;
         }
     }
 }

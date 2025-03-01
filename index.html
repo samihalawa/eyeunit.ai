@@ -917,6 +917,11 @@
     </script>
 
     <!-- Initialize AI Chat Widget -->
-    <script type="module" src="/components/chatbot/init.js"></script>
+    <script type="module">
+        // Use dynamic import to ensure the path is correct in all environments
+        const basePath = window.location.origin;
+        import(`${basePath}/components/chatbot/init.js`)
+            .catch(err => console.error('Failed to load chat widget:', err));
+    </script>
 </body>
 </html>
