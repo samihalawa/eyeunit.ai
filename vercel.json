@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "blog/**/*.html", "use": "@vercel/static" },
+    { "src": "pages/**/*.html", "use": "@vercel/static" },
+    { "src": "assets/**/*", "use": "@vercel/static" },
+    { "src": "components/**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/health", "dest": "/api/health.js" },
+    { "src": "/api/config", "dest": "/api/config.js" },
+    { "src": "/api/contact", "dest": "/api/contact.js" },
+    { "src": "/blog", "dest": "/blog/index.html" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/components/(.*)", "dest": "/components/$1" },
+    { "src": "/(.*)\\.html", "dest": "/$1.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+} 
