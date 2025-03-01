@@ -34,22 +34,68 @@ export class ChatWidget {
         try {
             console.log('Fetching API configuration...');
             const baseUrl = window.location.origin;
-            const response = await fetch(`${baseUrl}/api/config`);
+            const configUrl = `${baseUrl}/api/config`;
+            console.log(`Attempting to fetch config from: ${configUrl}`);
             
-            if (!response.ok) {
-                const error = await response.text();
+            // Add retries for better reliability, especially in Cloudflare
+            let retries = 3;
+            let response = null;
+            let useCloudflareFunction = false;
+            
+            while (retries > 0) {
+                try {
+                    // Try standard fetch first
+                    response = await fetch(configUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        cache: 'no-cache',
+                        credentials: useCloudflareFunction ? 'omit' : 'same-origin'
+                    });
+                    
+                    // If we get a response, break out of retry loop
+                    if (response.ok) {
+                        break;
+                    }
+                    
+                    // If not OK and we haven't tried Cloudflare Function mode yet, try that
+                    if (!useCloudflareFunction && response.status === 404) {
+                        console.log('Standard endpoint not found, trying Cloudflare Function endpoint...');
+                        useCloudflareFunction = true;
+                        continue;  // Try again with Cloudflare Function mode
+                    }
+                    
+                    // If we've already tried both or got a non-404 error, decrement retries
+                    console.error(`Fetch attempt failed with status ${response.status} (${retries} retries left)`);
+                    retries--;
+                    if (retries === 0) break;
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retry
+                } catch (fetchError) {
+                    console.error(`Fetch attempt failed (${retries} retries left):`, fetchError);
+                    retries--;
+                    if (retries === 0) throw fetchError;
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retry
+                }
+            }
+            
+            if (!response || !response.ok) {
+                const error = response ? await response.text() : 'No response received';
                 let errorMessage;
                 try {
                     const errorJson = JSON.parse(error);
-                    errorMessage = errorJson.error || response.statusText;
+                    errorMessage = errorJson.error || (response ? response.statusText : 'Unknown error');
                 } catch (e) {
-                    errorMessage = error || response.statusText;
+                    errorMessage = error || (response ? response.statusText : 'Unknown error');
                 }
+                console.error(`API config response not OK: ${response ? response.status : 'No response'}`);
                 throw new Error(`Failed to fetch API configuration: ${errorMessage}`);
             }
             
             const config = await response.json();
             if (!config.huggingfaceApiKey) {
+                console.error('API key missing in server response:', config);
                 throw new Error('API key missing in server response');
             }
             
@@ -57,7 +103,11 @@ export class ChatWidget {
             console.log('API key successfully initialized');
         } catch (error) {
             console.error('Failed to initialize API key:', error);
-            this.addBotMessage("I apologize, but I'm having trouble initializing. Please ensure the server is running and the API key is properly configured.");
+            this.apiKey = null; // Ensure key is null on failure
+            // Only add error message if widget is already created
+            if (document.querySelector('.chat-messages')) {
+                this.addBotMessage("I apologize, but I'm having trouble connecting to the server. Please try again later or contact support if the issue persists.");
+            }
         }
     }
 
@@ -203,7 +253,7 @@ export class ChatWidget {
     async callAPI(message) {
         if (!this.apiKey) {
             console.error('API key not initialized');
-            throw new Error('API key not initialized');
+            return "I apologize, but I cannot process your request at the moment as the API key is not available. Please try again later or contact support.";
         }
         console.log('Sending message to HuggingFace API...');
         try {
@@ -220,56 +270,73 @@ ${message}
 <|im_start|>assistant`;
 
             console.log('Calling HuggingFace API at:', this.apiBase);
-            const response = await fetch(this.apiBase, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${this.apiKey}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    inputs: prompt,
-                    parameters: {
-                        max_new_tokens: 500,
-                        temperature: 0.7,
-                        top_p: 0.95,
-                        stop: ['<|im_end|>', '<|im_start|>'],
-                        do_sample: true
-                    }
-                })
-            });
+            
+            // Add timeout to prevent hanging requests
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+            
+            try {
+                const response = await fetch(this.apiBase, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.apiKey}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        inputs: prompt,
+                        parameters: {
+                            max_new_tokens: 500,
+                            temperature: 0.7,
+                            top_p: 0.95,
+                            stop: ['<|im_end|>', '<|im_start|>'],
+                            do_sample: true
+                        }
+                    }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText, 'Status:', response.status);
+                    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                }
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('API Error Response:', errorText);
-                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                console.log('Response received from API');
+                const result = await response.json();
+                
+                if (!result || !Array.isArray(result) || result.length === 0) {
+                    console.error('Invalid response format:', result);
+                    return "I apologize, but I received an invalid response. Please try again or contact support.";
+                }
+                
+                // Process and clean the response
+                let answer = result[0].generated_text || '';
+                
+                // Remove the input prompt from the response
+                answer = answer.replace(prompt, '').trim();
+                
+                // Remove any trailing stop tokens
+                answer = answer.replace(/<\|im_end\|>/g, '').trim();
+                
+                // If empty response, provide a fallback
+                if (!answer) {
+                    return "I apologize, but I'm having trouble generating a response. Please try rephrasing your question or contact our support team for assistance.";
+                }
+                
+                return answer;
+            } catch (fetchError) {
+                clearTimeout(timeoutId);
+                if (fetchError.name === 'AbortError') {
+                    console.error('API request timed out');
+                    return "I apologize, but the request timed out. Please try again later or contact support.";
+                }
+                throw fetchError;
             }
-
-            console.log('Response received from API');
-            const result = await response.json();
-            
-            if (!result || !Array.isArray(result) || result.length === 0) {
-                console.error('Invalid response format:', result);
-                return "I apologize, but I received an invalid response. Please try again or contact support.";
-            }
-            
-            // Process and clean the response
-            let answer = result[0].generated_text || '';
-            
-            // Remove the input prompt from the response
-            answer = answer.replace(prompt, '').trim();
-            
-            // Remove any trailing stop tokens
-            answer = answer.replace(/<\|im_end\|>/g, '').trim();
-            
-            // If empty response, provide a fallback
-            if (!answer) {
-                return "I apologize, but I'm having trouble generating a response. Please try rephrasing your question or contact our support team for assistance.";
-            }
-            
-            return answer;
         } catch (error) {
             console.error('Error in API call:', error);
-            return `I apologize, but I encountered an error processing your request: ${error.message}. Please try again later or contact support.`;
+            return `I apologize, but I encountered an error processing your request. Please try again later or contact support.`;
         }
     }
 }

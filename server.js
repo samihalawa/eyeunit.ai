@@ -6,6 +6,31 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const app = express();
 
+// Validate environment variables
+function validateEnvironment() {
+    const requiredVars = ['HUGGINGFACE_API_KEY'];
+    const missingVars = [];
+
+    for (const varName of requiredVars) {
+        if (!process.env[varName]) {
+            missingVars.push(varName);
+        }
+    }
+
+    if (missingVars.length > 0) {
+        console.error(`Missing required environment variables: ${missingVars.join(', ')}`);
+        console.error('Please set these variables in your .env file or environment');
+    } else {
+        console.log('All required environment variables are set');
+    }
+
+    // Log the current environment
+    console.log(`Running in ${process.env.NODE_ENV || 'default'} mode`);
+}
+
+// Call validation function 
+validateEnvironment();
+
 // Configure rate limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -14,8 +39,8 @@ const limiter = rateLimit({
 
 // Define allowed origins based on environment
 const allowedOrigins = process.env.NODE_ENV === 'development' 
-    ? ['http://localhost:3000', 'https://eyeunit.ai']
-    : ['https://eyeunit.ai', /\.eyeunit\.ai$/, /\.cloudflare\.com$/];
+    ? ['http://localhost:3000', 'https://eyeunit.ai', null]
+    : ['https://eyeunit.ai', /\.eyeunit\.ai$/, /\.cloudflare\.com$/, /\.pages\.dev$/];
 
 // Enable CORS with flexible configuration
 app.use(cors({
@@ -51,7 +76,9 @@ app.use(cors({
         console.log(`CORS blocked for origin: ${origin}`);
         callback(new Error('Not allowed by CORS'));
     },
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 // Parse JSON bodies
@@ -93,8 +120,15 @@ app.use(express.static('.'));
 app.get('/api/config', (req, res) => {
     const origin = req.headers.origin;
     
-    // Skip origin check in production to allow Cloudflare Workers
-    if (process.env.NODE_ENV !== 'production' && origin && !isOriginAllowed(origin, allowedOrigins)) {
+    console.log(`API config request from origin: ${origin}, NODE_ENV: ${process.env.NODE_ENV}`);
+    
+    // Skip origin check for Cloudflare Pages domains or in development mode
+    if (!origin) {
+        console.log('No origin header - allowing request');
+    } else if (process.env.NODE_ENV === 'production' && 
+              (!isOriginAllowed(origin, allowedOrigins) && 
+               !origin.includes('pages.dev') && 
+               !origin.includes('cloudflare'))) {
         console.log(`API config access blocked for origin: ${origin}`);
         return res.status(403).json({ error: 'Origin not allowed' });
     }
@@ -178,6 +212,16 @@ app.get('/blog', (req, res) => {
 app.use((req, res) => {
     console.log(`404: ${req.url}`);
     res.status(404).sendFile(path.join(__dirname, '404.html'));
+});
+
+// Health check endpoint - useful for Cloudflare and troubleshooting
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'default',
+        apiKeyConfigured: !!process.env.HUGGINGFACE_API_KEY
+    });
 });
 
 const PORT = process.env.PORT || 3000;
