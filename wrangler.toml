@@ -1,0 +1,19 @@
+name = "eyeunit-ai"
+compatibility_date = "2023-11-21"
+compatibility_flags = []
+
+# Configure Pages deployment
+[site]
+bucket = "."
+
+# Routes for functions
+[routes]
+pattern = "/api/*"
+zone_name = "eyeunit.ai"
+
+# Environment variables (DO NOT PUT ACTUAL VALUES HERE - use secret instead)
+# [vars]
+# EXAMPLE_VARIABLE = "example"
+
+# Secrets should be added via wrangler command line:
+# wrangler secret put HUGGINGFACE_API_KEY 

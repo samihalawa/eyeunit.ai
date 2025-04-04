@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/assets/*", "/components/*"],
+  "routes": [
+    {
+      "pattern": "/api/config",
+      "function": "api/config"
+    },
+    {
+      "pattern": "/api/health",
+      "function": "api/health"
+    }
+  ]
+} 

@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EyeUnit.ai - Unlocking Vision with AI Innovation</title>
+
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Interactive Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.5.0/parallax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="EyeUnit.ai - Leading the revolution in AI-powered ophthalmology with cutting-edge diagnostic solutions">
+    <meta name="keywords" content="AI ophthalmology, medical AI, eye care technology, retinal analysis">
+    <meta name="author" content="EyeUnit.ai">
+    <meta name="robots" content="index,follow">
+
+    <!-- Add after existing meta tags -->
+    <link rel="canonical" href="https://www.eyeunit.ai" />
+    <meta property="og:title" content="EyeUnit.ai - AI Innovation in Ophthalmology">
+    <meta property="og:description" content="Revolutionizing eye care with AI-powered solutions">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200">
+    <meta property="og:url" content="https://www.eyeunit.ai">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="font" crossorigin>
+    
+    <!-- Add structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "EyeUnit.ai",
+        "url": "https://www.eyeunit.ai",
+        "logo": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=200",
+        "sameAs": [
+            "https://twitter.com/eyeunitai",
+            "https://linkedin.com/company/eyeunit-ai"
+        ]
+    }
+    </script>
+
+    <!-- Add resource hints -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://api.eyeunit.ai">
+
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+            --transition-duration: 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            scroll-behavior: smooth;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .advanced-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .advanced-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            @apply ring-2 ring-blue-500 ring-opacity-50;
+        }
+
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--color-primary);
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .team-card {
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        * {
+            transition: all var(--transition-duration) ease;
+        }
+
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: clamp(3rem, 5vw, 4.5rem);
+                line-height: 1.1;
+            }
+            
+            h2 {
+                font-size: clamp(2rem, 4vw, 3rem);
+            }
+            
+            p {
+                font-size: clamp(1rem, 1.5vw, 1.25rem);
+            }
+        }
+
+        .container {
+            max-width: 1440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+        }
+        
+        .nav-link {
+            @apply px-4 py-2 rounded-lg transition-all duration-200;
+        }
+        
+        .nav-link:hover {
+            @apply bg-blue-50 dark:bg-gray-700;
+        }
+        
+        .nav-link.active {
+            @apply bg-blue-100 dark:bg-gray-600;
+        }
+
+        .dark-mode-toggle {
+            @apply p-3 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200;
+        }
+
+        .loading-skeleton {
+            @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg;
+        }
+
+        /* Add responsive utilities */
+        .mobile-menu-container {
+            @apply fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out;
+        }
+        
+        .mobile-menu-container.hidden {
+            transform: translateX(-100%);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                @apply px-4 mx-auto w-full max-w-none;
+            }
+            
+            .hero-content {
+                @apply text-center py-8;
+            }
+            
+            .hero-buttons {
+                @apply flex-col space-y-4 w-full;
+            }
+            
+            .nav-menu {
+                @apply hidden;
+            }
+            
+            .mobile-menu {
+                @apply block;
+            }
+
+            .team-card {
+                @apply mx-auto max-w-sm;
+            }
+
+            .research-grid {
+                @apply grid-cols-1 gap-6;
+            }
+
+            .contact-form {
+                @apply w-full max-w-md mx-auto;
+            }
+
+            .footer-links {
+                @apply grid-cols-2 gap-4;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            h2 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+            
+            p {
+                font-size: clamp(0.875rem, 4vw, 1rem);
+            }
+        }
+
+        /* Fix form elements on mobile */
+        .form-input, .form-textarea {
+            @apply w-full px-3 py-2 text-base;
+            @apply border border-gray-300 rounded-lg;
+            @apply focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+        }
+
+        /* Fix mobile menu */
+        .mobile-menu-container {
+            @apply fixed inset-0 z-50 bg-white dark:bg-gray-800;
+            @apply transform transition-transform duration-300;
+        }
+
+        .mobile-menu-container.hidden {
+            @apply -translate-x-full;
+        }
+
+        /* Fix image responsiveness */
+        .responsive-image {
+            @apply w-full h-auto object-cover;
+            @apply max-w-full mx-auto;
+        }
+
+        /* Fix button responsiveness */
+        .responsive-button {
+            @apply w-full sm:w-auto;
+            @apply px-6 py-3;
+            @apply flex items-center justify-center;
+            @apply transition-all duration-200;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+        }
+
+        /* Chatbot Widget Styles */
+        .chat-widget-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-widget-button:hover {
+            transform: scale(1.1);
+            background-color: #2563EB;
+        }
+        
+        .chat-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-widget.open {
+            display: flex;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background-color: var(--color-primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-close {
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background-color: #E5E7EB;
+            color: #1F2937;
+            align-self: flex-end;
+        }
+        
+        .bot-message {
+            background-color: #DBEAFE;
+            color: #1E40AF;
+            align-self: flex-start;
+        }
+        
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #D1D5DB;
+            border-radius: 30px;
+            outline: none;
+        }
+        
+        .chat-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+        }
+        
+        .send-button {
+            margin-left: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .send-button:hover {
+            background-color: #2563EB;
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #DBEAFE;
+            color: #1E40AF;
+            border-radius: 20px;
+            align-self: flex-start;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #1E40AF;
+            border-radius: 50%;
+            margin-right: 3px;
+            animation: typing 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+
+    <!-- Add Mermaid.js CDN link -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.2.4/dist/mermaid.min.js"></script>
+
+    <!-- Add dark mode preference script -->
+    <script>
+        function initDarkMode() {
+            // Check system preference first
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedPreference = localStorage.getItem('darkMode');
+            
+            // Set initial state
+            const shouldBeDark = storedPreference !== null ? storedPreference === 'true' : systemPrefersDark;
+            document.documentElement.classList.toggle('dark', shouldBeDark);
+            
+            // Listen for system changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (localStorage.getItem('darkMode') === null) {
+                    document.documentElement.classList.toggle('dark', e.matches);
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initDarkMode);
+    </script>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- Add blogPosts.js -->
+    <script src="/assets/js/blogPosts.js" defer></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+
+<body 
+    x-data="formHandler()" 
+    :class="{ 'dark': darkMode }"
+    @scroll.window="scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100"
+    class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white relative"
+>
+    <!-- Progress Bar -->
+    <div 
+        class="progress-bar fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50" 
+        :style="`width: ${scrollProgress}%`"
+    ></div>
+
+    <!-- Blob Background -->
+    <div class="absolute inset-0 overflow-hidden z-[-1]">
+        <div class="blob bg-blue-400" style="top: 10%; left: 20%; width: 300px; height: 300px;"></div>
+        <div class="blob bg-green-400" style="bottom: 20%; right: 30%; width: 250px; height: 250px;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/pages/technologies.html" class="nav-link">Technologies</a>
+                    <a href="/pages/research.html" class="nav-link">Research</a>
+                    <a href="/pages/solutions.html" class="nav-link">Solutions</a>
+                    <a href="/blog" class="nav-link">Blog</a>
+                    <a href="/pages/contact.html" class="nav-link">Contact</a>
+                    <button 
+                        @click="toggleDarkMode()"
+                        class="dark-mode-toggle"
+                    >
+                        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button 
+                    @click="mobileMenu = !mobileMenu"
+                    class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    aria-label="Toggle mobile menu"
+                    :aria-expanded="mobileMenu.toString()"
+                >
+                    <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div 
+            x-show="mobileMenu"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4"
+            class="fixed inset-0 z-50 bg-white dark:bg-gray-800 lg:hidden"
+        >
+            <div class="container mx-auto py-6 px-4">
+                <div class="flex justify-end mb-8">
+                    <button 
+                        @click="mobileMenu = false"
+                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="/pages/technologies.html" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Technologies</a>
+                    <a href="/pages/research.html" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Research</a>
+                    <a href="/pages/solutions.html" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Solutions</a>
+                    <a href="/blog" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Blog</a>
+                    <a href="/pages/contact.html" @click="mobileMenu = false" class="text-lg py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="hero-section py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-bold mb-6">
+                        Revolutionizing Eye Care with
+                        <span class="gradient-text">AI Innovation</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        EyeUnit.ai combines cutting-edge artificial intelligence with ophthalmology expertise 
+                        to deliver precise diagnostics and enhanced patient care.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/pages/solutions.html" class="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center">
+                            Explore Solutions
+                        </a>
+                        <a href="/pages/contact.html" class="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors text-center">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="blob absolute top-0 right-0 w-64 h-64 bg-blue-300 opacity-20"></div>
+                    <div class="blob absolute bottom-0 left-0 w-64 h-64 bg-green-300 opacity-20"></div>
+                    <img 
+                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800"
+                        alt="AI Eye Care Technology"
+                        class="relative z-10 rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800'"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">95%</div>
+                    <div class="text-gray-600">Diagnostic Accuracy</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">50+</div>
+                    <div class="text-gray-600">Research Papers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">10K+</div>
+                    <div class="text-gray-600">Cases Analyzed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                    <div class="text-gray-600">AI Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section id="technologies" class="py-16 md:py-32 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 gradient-text">
+                Our Advanced AI Technologies
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-brain text-3xl md:text-4xl text-blue-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Neural Diagnostics</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Our advanced deep learning models analyze retinal images with unparalleled precision, aiding in early disease detection and accurate diagnosis.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-chart-line text-3xl md:text-4xl text-green-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Predictive Analytics</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Machine learning algorithms predict eye health risks, providing healthcare professionals with valuable insights for proactive patient care.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex flex-col h-full">
+                        <div class="mb-6">
+                            <i class="fas fa-microscope text-3xl md:text-4xl text-purple-600"></i>
+                            <h3 class="text-xl md:text-2xl font-semibold mt-4 mb-4">Research Innovation</h3>
+                            <p class="text-gray-600 dark:text-gray-300">EyeUnit.ai's research team is at the forefront of AI-driven ocular research, pushing the boundaries of understanding and treatment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <h3 class="text-4xl font-bold text-blue-600 mb-2">95%</h3>
+                    <p class="text-gray-600">Accuracy Rate</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-4xl font-bold text-blue-600 mb-2">50+</h3>
+                    <p class="text-gray-600">Research Papers</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-4xl font-bold text-blue-600 mb-2">100+</h3>
+                    <p class="text-gray-600">Clinics Served</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-4xl font-bold text-blue-600 mb-2">24/7</h3>
+                    <p class="text-gray-600">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Impact Visualization -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Research Impact Visualization</h2>
+            <div class="max-w-4xl mx-auto">
+                <canvas id="researchImpactChart" class="w-full h-[400px]"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Research Impact Chart
+        const ctx = document.getElementById('researchImpactChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Research Publications',
+                    data: [10, 15, 25, 35, 45, 50],
+                    borderColor: '#3B82F6',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+    <!-- Latest Research Publication -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Latest Research Publication</h2>
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4">Medical Image Analysis and Multi-Step Prompt Engineering Innovation</h3>
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=150" 
+                             alt="Researcher" 
+                             class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold">Dr. Sarah Chen</p>
+                            <p class="text-gray-600">Published Feb 21, 2024</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Our latest research introduces a novel approach to medical image analysis using advanced AI techniques...
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">AI Research</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Healthcare</span>
+                        </div>
+                        <a href="/blog/ai-diagnostics-revolution.html" class="text-blue-600 hover:text-blue-700 font-semibold">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Insights -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Latest Insights</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800" 
+                         alt="Diagnostic Platform" 
+                         class="w-full h-48 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Diagnostic Platform</h3>
+                        <p class="text-gray-600 mb-4">
+                            Advanced AI-powered platform for accurate and efficient diagnosis of eye conditions.
+                        </p>
+                        <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800" 
+                         alt="Clinical Integration" 
+                         class="w-full h-48 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?auto=format&fit=crop&w=800'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Clinical Integration</h3>
+                        <p class="text-gray-600 mb-4">
+                            Seamless integration with existing healthcare systems for efficient patient care.
+                        </p>
+                        <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?auto=format&fit=crop&w=800" 
+                         alt="Research Analytics" 
+                         class="w-full h-48 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=800'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Research Analytics</h3>
+                        <p class="text-gray-600 mb-4">
+                            Comprehensive analytics platform for research institutions and data analysis.
+                        </p>
+                        <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Our Clients Say -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150" 
+                             alt="Dr. John Smith" 
+                             class="w-12 h-12 rounded-full mr-4"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150'"
+                        >
+                        <div>
+                            <h4 class="font-semibold">Dr. John Smith</h4>
+                            <p class="text-gray-600">Chief Ophthalmologist</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "EyeUnit.ai's platform has revolutionized how we diagnose eye conditions. The accuracy and speed are remarkable."
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150" 
+                             alt="Dr. Emily Johnson"
+                             class="w-12 h-12 rounded-full mr-4"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150'"
+                        >
+                        <div>
+                            <h4 class="font-semibold">Dr. Emily Johnson</h4>
+                            <p class="text-gray-600">Research Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "The research analytics tools have significantly improved our ability to analyze and interpret complex data sets."
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=150" 
+                             alt="Dr. Michael Chen"
+                             class="w-12 h-12 rounded-full mr-4"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150'"
+                        >
+                        <div>
+                            <h4 class="font-semibold">Dr. Michael Chen</h4>
+                            <p class="text-gray-600">Clinical Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "The integration with our existing systems was seamless. Support team is always responsive and helpful."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400" 
+                         alt="Dr. Sarah Chen"
+                         class="w-full h-64 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Dr. Sarah Chen</h3>
+                        <p class="text-gray-600 mb-4">Chief Medical Officer</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400" 
+                         alt="Dr. James Wilson"
+                         class="w-full h-64 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Dr. James Wilson</h3>
+                        <p class="text-gray-600 mb-4">Head of Research</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400" 
+                         alt="Alex Thompson"
+                         class="w-full h-64 object-cover"
+                         loading="lazy"
+                         onerror="this.src='https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=400'"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Alex Thompson</h3>
+                        <p class="text-gray-600 mb-4">Lead AI Engineer</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-700" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Get in Touch</h2>
+                <form id="contactForm" class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="md:col-span-2 flex justify-between items-center">
+                        <button type="submit" class="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            Send Message
+                        </button>
+                        <a href="https://wa.me/447591914775" target="_blank" class="flex items-center text-gray-600 hover:text-green-600">
+                            <i class="fab fa-whatsapp text-2xl mr-2"></i>
+                            WhatsApp Us
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                <p class="text-gray-600 mb-8">Subscribe to our newsletter for the latest updates in AI ophthalmology.</p>
+                <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email"
+                        required
+                        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                        Subscribe Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget-button" id="chatButton">
+        <i class="fas fa-comments"></i>
+    </div>
+    
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div>EyeUnit.ai Assistant</div>
+            <div class="chat-close" id="chatClose">&times;</div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">Hi there! I'm your EyeUnit.ai assistant. How can I help you today?</div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." />
+            <button class="send-button" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                                       <h1 class="text-2xl font-bold gradient-text">EyeUnit.ai</h1>
+                </div>
+
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    <a href="mailto:hello@eyeunit.ai" class="text-2xl hover:text-blue-400 flex items-center gap-2" aria-label="Email Us">
+                        <i class="fas fa-envelope"></i>
+                        <span class="text-base">hello@eyeunit.ai</span>
+                    </a>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/pages/privacy.html" class="hover:text-blue-400" aria-label="Privacy Policy">Privacy Policy</a>
+                    <a href="/pages/terms.html" class="hover:text-blue-400" aria-label="Terms of Service">Terms of Service</a>
+                    <a href="/pages/sitemap.html" class="hover:text-blue-400" aria-label="Sitemap">Sitemap</a>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <p class="text-sm text-gray-400 text-center">
+                    &copy; 2024 EyeUnit.ai. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handlers
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would normally send the data to your server
+            alert('Thank you for your message! We\'ll get back to you soon.');
+            this.reset();
+        });
+
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would normally send the data to your server
+            alert('Thank you for subscribing! You\'ll receive a confirmation email shortly.');
+            this.reset();
+        });
+
+        // Scroll to top button
+        const scrollToTop = document.createElement('button');
+        scrollToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollToTop.className = 'fixed bottom-8 right-8 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors';
+        scrollToTop.setAttribute('aria-label', 'Scroll to Top');
+        scrollToTop.style.display = 'none';
+        document.body.appendChild(scrollToTop);
+
+        window.addEventListener('scroll', () => {
+            scrollToTop.style.display = window.scrollY > 500 ? 'block' : 'none';
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <!-- Initialize AI Chat Widget -->
+    <script type="module">
+        import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('chatButton');
+            const chatWidget = document.getElementById('chatWidget');
+            const chatClose = document.getElementById('chatClose');
+            const chatInput = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendButton');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Initialize Hugging Face client with API key from server
+            let client;
+            
+            // Fetch API key from server
+            async function initializeClient() {
+                try {
+                    const response = await fetch('/api/config');
+                    const data = await response.json();
+                    
+                    if (data.huggingfaceApiKey) {
+                        client = new HfInference(data.huggingfaceApiKey);
+                        console.log('Chatbot initialized successfully');
+                    } else {
+                        console.error('API key not found in server response');
+                        addMessage('Sorry, the chatbot is currently unavailable. Please try again later.', 'bot');
+                    }
+                } catch (error) {
+                    console.error('Error fetching API key:', error);
+                    addMessage('Sorry, the chatbot is currently unavailable. Please try again later.', 'bot');
+                }
+            }
+            
+            // Initialize the client
+            initializeClient();
+            
+            // Chat history for context
+            const chatHistory = [
+                { role: 'assistant', content: 'Hi there! I\'m your EyeUnit.ai assistant. How can I help you today?' }
+            ];
+            
+            // Toggle chat widget
+            chatButton.addEventListener('click', function() {
+                chatWidget.classList.add('open');
+            });
+            
+            chatClose.addEventListener('click', function() {
+                chatWidget.classList.remove('open');
+            });
+            
+            // Send message function
+            async function sendMessage() {
+                const userMessage = chatInput.value.trim();
+                
+                if (!userMessage) return;
+                
+                // Check if client is initialized
+                if (!client) {
+                    addMessage('Sorry, the chatbot is not fully initialized yet. Please try again in a moment.', 'bot');
+                    return;
+                }
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Add user message to UI
+                addMessage(userMessage, 'user');
+                
+                // Add to chat history
+                chatHistory.push({ role: 'user', content: userMessage });
+                
+                // Show typing indicator
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'typing-indicator';
+                typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                chatMessages.appendChild(typingIndicator);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                try {
+                    // Call Hugging Face API
+                    const response = await client.textGeneration({
+                        model: 'mistralai/Mistral-7B-Instruct-v0.2',
+                        inputs: formatPrompt(chatHistory),
+                        parameters: {
+                            max_new_tokens: 500,
+                            temperature: 0.7,
+                            top_p: 0.95,
+                            return_full_text: false
+                        }
+                    });
+                    
+                    // Remove typing indicator
+                    chatMessages.removeChild(typingIndicator);
+                    
+                    // Extract response text
+                    const botMessage = response.generated_text.trim();
+                    
+                    // Add bot message to UI
+                    addMessage(botMessage, 'bot');
+                    
+                    // Add to chat history
+                    chatHistory.push({ role: 'assistant', content: botMessage });
+                    
+                } catch (error) {
+                    console.error('Error calling Hugging Face API:', error);
+                    
+                    // Remove typing indicator
+                    chatMessages.removeChild(typingIndicator);
+                    
+                    // Show error message
+                    addMessage('Sorry, I encountered an error. Please try again later.', 'bot');
+                }
+            }
+            
+            // Add message to chat UI
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${sender}-message`;
+                messageElement.textContent = text;
+                chatMessages.appendChild(messageElement);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Format prompt for Mistral model
+            function formatPrompt(history) {
+                let prompt = '';
+                
+                for (const message of history) {
+                    if (message.role === 'user') {
+                        prompt += `[INST] ${message.content} [/INST]\n`;
+                    } else {
+                        prompt += `${message.content}\n`;
+                    }
+                }
+                
+                return prompt;
+            }
+            
+            // Event listeners for sending messages
+            sendButton.addEventListener('click', sendMessage);
+            
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

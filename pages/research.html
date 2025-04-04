@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - EyeUnit.ai</title>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Explore EyeUnit.ai's groundbreaking research in AI-powered ophthalmology">
+    <meta name="robots" content="index,follow">
+    
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .research-card {
+            transition: transform 0.3s ease;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-gray-800">EyeUnit.ai</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/pages/technologies.html" class="text-gray-600 hover:text-blue-600">Technologies</a>
+                    <a href="/pages/research.html" class="text-blue-600">Research</a>
+                    <a href="/pages/solutions.html" class="text-gray-600 hover:text-blue-600">Solutions</a>
+                    <a href="/blog" class="text-gray-600 hover:text-blue-600">Blog</a>
+                    <a href="/pages/contact.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-50 to-green-50">
+        <div class="container mx-auto px-6">
+            <h1 class="text-5xl font-bold mb-8 text-center">
+                Research & <span class="gradient-text">Innovation</span>
+            </h1>
+            <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto">
+                Advancing the field of AI-powered ophthalmology through groundbreaking research
+                and innovative solutions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Latest Research Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Latest Research</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Deep Learning for Early Detection of Diabetic Retinopathy</h3>
+                    <p class="text-gray-600 mb-4">
+                        Our latest research demonstrates 95% accuracy in early detection of diabetic retinopathy
+                        using advanced deep learning models.
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500">Published: Feb 2024</span>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">Read Paper →</a>
+                    </div>
+                </div>
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI-Powered Glaucoma Screening</h3>
+                    <p class="text-gray-600 mb-4">
+                        Novel approach using transformer models achieves state-of-the-art results in
+                        automated glaucoma detection and progression monitoring.
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500">Published: Jan 2024</span>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">Read Paper →</a>
+                    </div>
+                </div>
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Machine Learning in Retinal Disease Classification</h3>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive study on multi-label classification of retinal diseases using
+                        ensemble learning techniques.
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500">Published: Dec 2023</span>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">Read Paper →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Research Areas</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Deep Learning</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Neural network architectures for medical imaging</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Transfer learning in ophthalmology</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Attention mechanisms for disease detection</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Computer Vision</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Advanced image segmentation techniques</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>3D reconstruction of retinal structures</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Real-time processing algorithms</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="research-card bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Predictive Analytics</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Disease progression modeling</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Treatment outcome prediction</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Risk factor analysis</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Partners Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Research Partners</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Academic Partnerships</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-university text-blue-600 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium mb-2">Leading Research Universities</h4>
+                                <p class="text-gray-600">
+                                    Collaborating with top universities worldwide to advance AI research
+                                    in ophthalmology and medical imaging.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-microscope text-blue-600 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium mb-2">Research Institutions</h4>
+                                <p class="text-gray-600">
+                                    Partnering with specialized research institutions to conduct clinical
+                                    trials and validate our AI solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Industry Collaboration</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-hospital text-blue-600 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium mb-2">Healthcare Providers</h4>
+                                <p class="text-gray-600">
+                                    Working with leading hospitals and clinics to implement and validate
+                                    our AI technologies in real-world settings.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-industry text-blue-600 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium mb-2">Technology Partners</h4>
+                                <p class="text-gray-600">
+                                    Collaborating with technology companies to enhance our AI capabilities
+                                    and improve healthcare outcomes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">EyeUnit.ai</h3>
+                    <p class="text-gray-400">Revolutionizing eye care with AI innovation.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pages/technologies.html" class="text-gray-400 hover:text-white">Technologies</a></li>
+                        <li><a href="/pages/research.html" class="text-gray-400 hover:text-white">Research</a></li>
+                        <li><a href="/pages/solutions.html" class="text-gray-400 hover:text-white">Solutions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pages/privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/pages/terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="/pages/sitemap.html" class="text-gray-400 hover:text-white">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <p class="text-gray-400">Email: hello@eyeunit.ai</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Initialize AI Chat Widget -->
+    <script type="module" src="/components/chatbot/init.js"></script>
+</body>
+</html>

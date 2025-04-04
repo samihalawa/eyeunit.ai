@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>%TITLE% - EyeUnit.ai Blog</title>
+
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="%EXCERPT%">
+    <meta name="keywords" content="AI ophthalmology, %CATEGORY%, medical AI, healthcare innovation">
+    <meta name="author" content="%AUTHOR%">
+    <meta name="robots" content="index,follow">
+    
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prose {
+            max-width: 65ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .prose img {
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .prose h2 {
+            color: var(--color-text);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
+                <a href="/blog" class="text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Blog
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <article class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <header class="mb-12 text-center">
+                <div class="mb-4">
+                    <span class="bg-%CATEGORY_COLOR%-100 text-%CATEGORY_COLOR%-800 px-3 py-1 rounded-full text-sm">
+                        %CATEGORY%
+                    </span>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 gradient-text">%TITLE%</h1>
+                <div class="flex items-center justify-center space-x-4 text-gray-600">
+                    <div class="flex items-center">
+                        <img src="%AUTHOR_IMAGE%" alt="%AUTHOR%" class="w-10 h-10 rounded-full mr-3">
+                        <span>%AUTHOR%</span>
+                    </div>
+                    <span>•</span>
+                    <time datetime="%DATE_ISO%">%DATE_FORMATTED%</time>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            <div class="mb-12">
+                <img src="%IMAGE%" alt="%TITLE%" class="w-full h-[400px] object-cover rounded-xl shadow-lg">
+            </div>
+
+            <!-- Content -->
+            <div class="prose text-gray-800">
+                %CONTENT%
+            </div>
+
+            <!-- Author Bio -->
+            <div class="mt-12 p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-start space-x-4">
+                    <img src="%AUTHOR_IMAGE%" alt="%AUTHOR%" class="w-16 h-16 rounded-full">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">%AUTHOR%</h3>
+                        <p class="text-gray-600">%AUTHOR_BIO%</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-2xl font-bold gradient-text">EyeUnit.ai</h1>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/pages/privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+                    <a href="/pages/terms.html" class="hover:text-blue-400">Terms of Service</a>
+                    <a href="/pages/sitemap.html" class="hover:text-blue-400">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

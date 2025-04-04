@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - EyeUnit.ai</title>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Explore the latest insights, research, and innovations in AI-powered ophthalmology from EyeUnit.ai">
+    <meta name="keywords" content="AI ophthalmology blog, medical AI research, healthcare innovation, eye care technology">
+    
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tag-filter {
+            transition: all 0.3s ease;
+        }
+
+        .tag-filter.active {
+            background-color: var(--color-primary);
+            color: white;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
+                <a href="/" class="text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold mb-8 gradient-text text-center">Blog & Insights</h1>
+        
+        <!-- Search and Filters -->
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <!-- Search -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input 
+                            type="text"
+                            placeholder="Search articles..."
+                            class="w-full px-4 py-3 pl-12 text-gray-700 bg-gray-100 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Filter by Topic</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            All
+                        </button>
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            AI Technology
+                        </button>
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            Research
+                        </button>
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            Healthcare
+                        </button>
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            Innovation
+                        </button>
+                        <button class="tag-filter px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white">
+                            Case Studies
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Post -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-12">
+                <div class="relative h-[400px]">
+                    <img 
+                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200"
+                        alt="AI in Ophthalmology"
+                        class="w-full h-full object-cover"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm mb-4 inline-block">Featured</span>
+                        <h2 class="text-3xl font-bold mb-4">The AI Revolution in Ophthalmology Diagnostics</h2>
+                        <div class="flex items-center space-x-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=150"
+                                alt="Dr. Sarah Chen"
+                                class="w-10 h-10 rounded-full"
+                            >
+                            <div>
+                                <p class="font-semibold">Dr. Sarah Chen</p>
+                                <p class="text-sm opacity-90">February 21, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <p class="text-gray-600 mb-4">
+                        Explore how artificial intelligence is revolutionizing ophthalmology diagnostics with advanced image analysis and machine learning algorithms.
+                    </p>
+                    <a href="/blog/ai-diagnostics-revolution.html" class="text-blue-600 hover:text-blue-700 font-semibold">
+                        Read More →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Blog Grid -->
+            <div id="blogPosts" class="grid md:grid-cols-2 gap-8">
+                <!-- Blog posts will be loaded dynamically by blogPosts.js -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-12 flex justify-center">
+                <nav class="flex items-center space-x-2">
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="px-4 py-2 rounded-lg bg-blue-500 text-white">1</button>
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors">2</button>
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors">3</button>
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <!-- Newsletter -->
+    <section class="bg-blue-50 py-16">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+                <p class="text-gray-600 mb-8">Stay updated with the latest insights and innovations in AI-powered ophthalmology.</p>
+                <form class="flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email"
+                        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                    <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-2xl font-bold gradient-text">EyeUnit.ai</h1>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/pages/privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+                    <a href="/pages/terms.html" class="hover:text-blue-400">Terms of Service</a>
+                    <a href="/pages/sitemap.html" class="hover:text-blue-400">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/blogPosts.js"></script>
+</body>
+</html> 

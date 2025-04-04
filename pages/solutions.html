@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutions - EyeUnit.ai</title>
+
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Interactive Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.5.0/parallax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Explore EyeUnit.ai's comprehensive AI-powered solutions for ophthalmology">
+    <meta name="robots" content="index,follow">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="font" crossorigin>
+    
+    <!-- Add resource hints -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://api.eyeunit.ai">
+
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .solution-card {
+            transition: transform 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/pages/technologies.html" class="text-gray-600 hover:text-blue-600">Technologies</a>
+                    <a href="/pages/research.html" class="text-gray-600 hover:text-blue-600">Research</a>
+                    <a href="/pages/solutions.html" class="text-blue-600">Solutions</a>
+                    <a href="/blog" class="text-gray-600 hover:text-blue-600">Blog</a>
+                    <a href="/pages/contact.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold mb-8 gradient-text text-center">AI-Powered Eye Care Solutions</h1>
+        
+        <div class="max-w-6xl mx-auto">
+            <!-- Hero Section -->
+            <section class="mb-16">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4">Transform Your Practice</h2>
+                        <p class="text-gray-600 mb-6">
+                            Transform your practice with our comprehensive suite of AI-powered solutions
+                            designed specifically for ophthalmology professionals.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#contact" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center">
+                                Get Started
+                            </a>
+                            <a href="#demo" class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors text-center">
+                                Request Demo
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <img 
+                            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800"
+                            alt="AI Eye Care Solutions"
+                            class="rounded-lg shadow-lg"
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solutions Grid -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Our Product Suite</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Diagnostic Platform -->
+                    <div class="solution-card bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800"
+                            alt="Diagnostic Platform"
+                            class="w-full h-48 object-cover"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Diagnostic Platform</h3>
+                            <p class="text-gray-600 mb-4">
+                                Advanced AI-powered platform for accurate and efficient diagnosis of eye conditions,
+                                featuring real-time analysis and detailed reporting.
+                            </p>
+                            <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Integration -->
+                    <div class="solution-card bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800"
+                            alt="Clinical Integration"
+                            class="w-full h-48 object-cover"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Clinical Integration</h3>
+                            <p class="text-gray-600 mb-4">
+                                Seamless integration with existing healthcare systems, ensuring smooth workflow
+                                and efficient patient care management.
+                            </p>
+                            <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                        </div>
+                    </div>
+
+                    <!-- Research Analytics -->
+                    <div class="solution-card bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?auto=format&fit=crop&w=800"
+                            alt="Research Analytics"
+                            class="w-full h-48 object-cover"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Research Analytics</h3>
+                            <p class="text-gray-600 mb-4">
+                                Comprehensive analytics platform for research institutions, providing powerful
+                                tools for data analysis and insights generation.
+                            </p>
+                            <a href="#learn-more" class="text-blue-600 hover:text-blue-700">Learn More →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section class="mb-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4">Key Features</h2>
+                    <p class="text-gray-600">
+                        Our solutions are designed to enhance your practice with cutting-edge AI technology.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-start mb-4">
+                            <div class="text-blue-500 mr-4">
+                                <i class="fas fa-chart-line text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Real-time Analytics</h3>
+                                <p class="text-gray-600">
+                                    Get instant insights with our real-time analytics dashboard, monitoring
+                                    key metrics and performance indicators.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-start mb-4">
+                            <div class="text-blue-500 mr-4">
+                                <i class="fas fa-shield-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">HIPAA Compliant</h3>
+                                <p class="text-gray-600">
+                                    Our solutions adhere to the highest security standards, ensuring
+                                    complete protection of patient data.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-start mb-4">
+                            <div class="text-blue-500 mr-4">
+                                <i class="fas fa-cogs text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Automated Workflow</h3>
+                                <p class="text-gray-600">
+                                    Streamline your operations with automated workflows, reducing manual
+                                    tasks and improving efficiency.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-start mb-4">
+                            <div class="text-blue-500 mr-4">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Team Collaboration</h3>
+                                <p class="text-gray-600">
+                                    Enable seamless collaboration between team members with integrated
+                                    communication and sharing tools.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section id="demo" class="bg-blue-600 text-white rounded-xl p-12 text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Practice?</h2>
+                <p class="mb-8 text-lg">
+                    Join leading healthcare providers who trust EyeUnit.ai to deliver cutting-edge
+                    AI solutions for better patient care.
+                </p>
+                <a href="/pages/contact.html" class="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors">
+                    Schedule a Demo
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-2xl font-bold gradient-text">EyeUnit.ai</h1>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/pages/privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+                    <a href="/pages/terms.html" class="hover:text-blue-400">Terms of Service</a>
+                    <a href="/pages/sitemap.html" class="hover:text-blue-400">Sitemap</a>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <p class="text-sm text-gray-400 text-center">
+                    &copy; 2024 EyeUnit.ai. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- Initialize AI Chat Widget -->
+    <script type="module" src="/components/chatbot/init.js"></script>
+</body>
+</html>

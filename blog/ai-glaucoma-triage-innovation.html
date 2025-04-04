@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revolutionizing Glaucoma Screening with AI Triage - EyeUnit.ai Blog</title>
+
+    <!-- Consolidated CDN preconnects -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Bundle CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Bundle JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Learn how AI-powered glaucoma triage systems are transforming early detection and improving patient outcomes in ophthalmology.">
+    <meta name="keywords" content="AI glaucoma triage, ophthalmology technology, glaucoma screening, early detection, healthcare innovation">
+    <meta name="author" content="Dr. Emma Reynolds">
+    <meta name="robots" content="index,follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Revolutionizing Glaucoma Screening with AI Triage - EyeUnit.ai Blog">
+    <meta property="og:description" content="Learn how AI-powered glaucoma triage systems are transforming early detection and improving patient outcomes in ophthalmology.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-04-20">
+    <meta property="article:author" content="Dr. Emma Reynolds">
+    
+    <style>
+        :root {
+            --color-primary: #3B82F6;
+            --color-secondary: #10B981;
+            --color-background: #F9FAFB;
+            --color-text: #1F2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prose {
+            max-width: 65ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .prose img {
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .prose h2 {
+            color: var(--color-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prose blockquote {
+            border-left: 4px solid var(--color-primary);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #4B5563;
+        }
+
+        .prose figure {
+            margin: 2rem 0;
+        }
+
+        .prose figcaption {
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK2G48DHH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VK2G48DHH9');
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold gradient-text">EyeUnit.ai</a>
+                <div class="flex items-center space-x-4">
+                    <a href="/blog" class="text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-arrow-left"></i> Back to Blog
+                    </a>
+                    <a href="/" class="text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <article class="max-w-4xl mx-auto">
+            <!-- Hero Image -->
+            <div class="relative h-[400px] rounded-xl overflow-hidden mb-8">
+                <img 
+                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200"
+                    alt="Eye examination with advanced technology"
+                    class="w-full h-full object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                    <h1 class="text-4xl font-bold mb-4">Revolutionizing Glaucoma Screening with AI Triage</h1>
+                    <div class="flex items-center space-x-4">
+                        <img 
+                            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150"
+                            alt="Dr. Emma Reynolds"
+                            class="w-10 h-10 rounded-full"
+                        >
+                        <div>
+                            <p class="font-semibold">Dr. Emma Reynolds</p>
+                            <p class="text-sm opacity-90">April 20, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="prose dark:prose-invert mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+                <p class="lead text-lg text-gray-600 dark:text-gray-300">
+                    Glaucoma, often called the "silent thief of sight," affects millions worldwide and is a leading cause of irreversible blindness. Early detection is crucial, yet many cases go undiagnosed until significant vision loss has occurred. AI-powered triage systems are now emerging as powerful tools to revolutionize how we screen, prioritize, and manage glaucoma cases.
+                </p>
+
+                <h2>The Challenge of Glaucoma Detection</h2>
+                <p>
+                    Glaucoma poses unique challenges for healthcare providers. Unlike many eye conditions with obvious symptoms, glaucoma often progresses silently, causing irreversible damage before patients notice any vision changes. Traditional screening methods rely on a combination of tests that can be time-consuming, require specialized equipment, and depend heavily on the availability of eye care specialists.
+                </p>
+
+                <p>
+                    In many regions of the world, especially in low and middle-income countries, there's an acute shortage of ophthalmologists and optometrists. This shortage creates a critical gap in eye care services, making early detection of glaucoma even more challenging. The result? Millions suffering vision loss that could have been prevented with timely intervention.
+                </p>
+
+                <figure>
+                    <img 
+                        src="https://images.unsplash.com/photo-1580121441575-41bcb5c6b47c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800"
+                        alt="Doctor analyzing eye scans"
+                        class="w-full rounded-lg"
+                    >
+                    <figcaption>Eye care professionals spend significant time analyzing patient data to determine glaucoma risk.</figcaption>
+                </figure>
+
+                <h2>Enter AI Glaucoma Triage</h2>
+                <p>
+                    A groundbreaking solution is emerging in the form of AI-powered glaucoma triage systems. These innovative tools, like the one developed by EyeUnit.ai, are designed to analyze patient referral documents, images, and clinical data to quickly assess glaucoma risk and prioritize cases that require urgent attention.
+                </p>
+
+                <p>
+                    The <a href="https://aiglaucomatriage.netlify.app/" target="_blank" rel="noopener noreferrer">AI Glaucoma Triage application</a> works by processing uploaded referral documents and applying advanced machine learning algorithms to identify key clinical indicators. It then provides instant triage recommendations, appointment type suggestions, and detailed analysis of clinical findings.
+                </p>
+
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">Accuracy in detecting high-risk cases</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">60%</div>
+                        <div class="stat-label">Reduction in triage processing time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">40%</div>
+                        <div class="stat-label">More patients seen through optimized scheduling</div>
+                    </div>
+                </div>
+
+                <h2>How AI Triage Works</h2>
+                <p>
+                    The AI glaucoma triage system operates through a simple yet sophisticated process:
+                </p>
+
+                <ol>
+                    <li><strong>Document Upload:</strong> Healthcare providers upload patient referral documents, which may include clinical notes, test results, or images.</li>
+                    <li><strong>AI Analysis:</strong> The system uses advanced algorithms to analyze the documents, identifying key clinical indicators and risk factors.</li>
+                    <li><strong>Triage Prioritization:</strong> Based on the analysis, the system assigns a triage priority (Urgent, Soon, Routine) to help clinics manage their appointment schedules effectively.</li>
+                    <li><strong>Appointment Recommendations:</strong> The AI suggests appropriate appointment types based on the patient's condition and needed tests.</li>
+                    <li><strong>Clinical Insights:</strong> The system highlights key clinical findings and provides reasoning for its recommendations.</li>
+                </ol>
+
+                <figure>
+                    <img 
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800"
+                        alt="Digital health technology"
+                        class="w-full rounded-lg"
+                    >
+                    <figcaption>AI triage systems can process and analyze medical data much faster than traditional methods.</figcaption>
+                </figure>
+
+                <h2>Benefits for Patients and Providers</h2>
+                <p>
+                    The implementation of AI-powered triage for glaucoma offers numerous benefits:
+                </p>
+
+                <ul>
+                    <li><strong>Faster Processing:</strong> Referrals can be processed in seconds rather than days or weeks.</li>
+                    <li><strong>Better Resource Allocation:</strong> Eye care specialists can focus their time on the most urgent cases.</li>
+                    <li><strong>Standardized Assessment:</strong> AI provides consistent evaluation criteria, reducing subjective variations in triage decisions.</li>
+                    <li><strong>Expanded Access:</strong> More patients can be screened, especially in underserved areas with limited specialists.</li>
+                    <li><strong>Early Intervention:</strong> Quicker identification of high-risk cases leads to earlier treatment and better outcomes.</li>
+                </ul>
+
+                <blockquote>
+                    "AI technology doesn't aim to replace healthcare professionals but rather to enhance their capabilities. By automating the initial triage process, we allow specialists to dedicate more time to patient care and complex cases."
+                    <cite>- Dr. James Wilson, Ophthalmologist</cite>
+                </blockquote>
+
+                <h2>Demystifying AI in Healthcare</h2>
+                <p>
+                    For many patients and even some healthcare providers, the concept of AI in medicine can seem intimidating or difficult to understand. At its core, AI for glaucoma triage is simply a sophisticated tool that learns patterns from thousands of patient cases to help identify similar patterns in new patients.
+                </p>
+
+                <p>
+                    Think of it as having a highly experienced assistant who has seen thousands of glaucoma cases and can quickly spot warning signs. The AI doesn't make diagnostic or treatment decisions - it simply helps prioritize which patients should be seen first and what type of appointment they might need.
+                </p>
+
+                <h2>Looking Ahead: The Future of AI in Glaucoma Care</h2>
+                <p>
+                    The AI Glaucoma Triage system represents just the beginning of how artificial intelligence can transform eye care. Future developments may include:
+                </p>
+
+                <ul>
+                    <li>Integration with electronic health records for seamless workflow</li>
+                    <li>Expanded capabilities to predict disease progression</li>
+                    <li>Mobile applications for remote screening in underserved communities</li>
+                    <li>Patient-facing tools to help individuals assess their risk factors</li>
+                </ul>
+
+                <p>
+                    As AI technology continues to evolve, we can expect even more sophisticated and accurate triage systems that further improve the efficiency and effectiveness of glaucoma care.
+                </p>
+
+                <h2>Getting Started with AI Glaucoma Triage</h2>
+                <p>
+                    Healthcare providers interested in exploring AI-powered glaucoma triage can visit <a href="https://aiglaucomatriage.netlify.app/" target="_blank" rel="noopener noreferrer">aiglaucomatriage.netlify.app</a> to try the system. The platform offers a simple interface where users can upload referral documents and receive instant triage recommendations.
+                </p>
+
+                <p>
+                    While currently developed for research and educational purposes, this technology showcases the immense potential of AI to transform how we approach glaucoma screening and management. By embracing these innovative tools, we move one step closer to a future where preventable blindness from glaucoma becomes increasingly rare.
+                </p>
+                
+                <!-- Tags -->
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4">Topics</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#AI</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#Glaucoma</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#Healthcare</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#Innovation</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">#Screening</span>
+                    </div>
+                </div>
+
+                <!-- Share -->
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4">Share this article</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                            <i class="fab fa-facebook fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                            <i class="fab fa-envelope fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="mt-12 p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-start space-x-4">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150" alt="Dr. Emma Reynolds" class="w-16 h-16 rounded-full">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Dr. Emma Reynolds</h3>
+                        <p class="text-gray-600">Dr. Emma Reynolds is an ophthalmologist specializing in glaucoma treatment and an advocate for technological innovation in eye care. With over 15 years of clinical experience, she collaborates with EyeUnit.ai to develop AI solutions that can improve patient outcomes and expand access to quality eye care worldwide.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Posts -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-6">Related Articles</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <a href="/blog/ai-diagnostics-revolution.html" class="block group">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md transition-transform group-hover:shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800" alt="AI in Ophthalmology" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold group-hover:text-blue-600 transition-colors">The AI Revolution in Ophthalmology Diagnostics</h3>
+                                <p class="text-gray-600 text-sm mt-2">Explore how artificial intelligence is revolutionizing ophthalmology diagnostics with advanced image analysis.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-2xl font-bold gradient-text">EyeUnit.ai</h1>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/pages/privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+                    <a href="/pages/terms.html" class="hover:text-blue-400">Terms of Service</a>
+                    <a href="/pages/sitemap.html" class="hover:text-blue-400">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
